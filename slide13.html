@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slide 13 – Strategy by Category</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--navy-soft);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        :root {
+            --navy-main: #0b1f3f;
+            --navy-soft: #0a1632;
+            --panel-navy: #10234a;
+            --accent: #38bdf8;
+            --accent-soft: #0ea5e9;
+            --text-main: #f9fafb;
+            --text-muted: #cbd5e1;
+            --border-soft: rgba(226, 232, 240, 0.38);
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            padding: 48px 82px 40px 82px; /* +20% */
+            background:
+                radial-gradient(circle at 16% 14%, rgba(56, 189, 248, 0.22), transparent 55%),
+                radial-gradient(circle at 16% 14%, #123060 0, #0a1632 52%);
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.8fr);
+            column-gap: 40px;
+            align-items: center;
+        }
+
+        /* LEFT COLUMN */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px; /* +20% */
+        }
+
+        .brand-title {
+            text-transform: uppercase;
+            letter-spacing: 0.20em; /* +20% */
+            font-size: 19px; /* +20% */
+            color: #cbd5e1;
+        }
+
+        .brand-sub {
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .intro-title {
+            font-size: 40px; /* +25% */
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .intro-text {
+            font-size: 18px; /* +20% */
+            color: var(--text-muted);
+            line-height: 1.55;
+            max-width: 800px;
+        }
+
+        .bars {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px; /* bigger */
+        }
+
+        .bar {
+            background: radial-gradient(circle at 0% 0%, #132a52, #0c1d3c 82%);
+            border-radius: 22px; /* +20% */
+            border: 1px solid var(--border-soft);
+            padding: 14px 18px; /* +20% */
+            box-shadow: 0 20px 38px rgba(8, 19, 41, 0.55); /* boosted */
+        }
+
+        .bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .bar-title {
+            font-size: 20px; /* +33% */
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .bar-tag {
+            font-size: 13px; /* +20% */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .bar-content {
+            font-size: 16px; /* +25% */
+            color: var(--text-main);
+            line-height: 1.55;
+        }
+
+        .bar-content ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 26px; /* +20% */
+        }
+
+        .bar-content li {
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .bar-content li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .footnote {
+            font-size: 14px; /* +27% */
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* RIGHT COLUMN */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* +20% */
+        }
+
+        .right-header-title {
+            font-size: 22px; /* +35% */
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .right-header-text {
+            font-size: 16px; /* +23% */
+            color: var(--text-muted);
+            line-height: 1.55;
+            max-width: 380px;
+        }
+
+        .right-card {
+            background: radial-gradient(circle at 0% 0%, #132a52, #0c1d3c 85%);
+            border-radius: 22px;
+            border: 1px solid var(--border-soft);
+            padding: 14px 20px;
+            box-shadow: 0 20px 36px rgba(8, 19, 41, 0.55);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .right-card ul {
+            list-style: none;
+        }
+
+        .right-card li {
+            position: relative;
+            margin-bottom: 6px;
+            padding-left: 14px;
+        }
+
+        .right-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .right-card strong {
+            color: #e5e7eb;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="slide">
+
+    <!-- LEFT SIDE -->
+    <section class="left-column">
+        <div class="brand-title">Eurimobility Case Study</div>
+        <div class="brand-sub">Slide 13 · Strategy by category</div>
+
+        <h1 class="intro-title">How the sourcing strategy is applied by category</h1>
+        <p class="intro-text">
+            The reduction of Asian dependency is mainly driven by three strategic families.
+            Each one has a clear sourcing playbook combining dual sourcing, new European partners
+            and structured risk mitigation.
+        </p>
+
+        <div class="bars">
+
+            <!-- Electronic Components -->
+            <article class="bar">
+                <div class="bar-header">
+                    <div class="bar-title">Electronic Components</div>
+                    <div class="bar-tag">Strategic · High risk</div>
+                </div>
+                <div class="bar-content">
+                    <ul>
+                        <li>Shift from China-heavy sourcing to EU/Asia dual sourcing.</li>
+                        <li>Qualify new European PCB & power electronics suppliers.</li>
+                        <li>Secure long-term contracts to stabilise capacity and prices.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Li-ion Batteries -->
+            <article class="bar">
+                <div class="bar-header">
+                    <div class="bar-title">Li-ion Batteries</div>
+                    <div class="bar-tag">Strategic · High impact</div>
+                </div>
+                <div class="bar-content">
+                    <ul>
+                        <li>Build partnerships with ACC, Northvolt, Verkor, and other EU gigafactories.</li>
+                        <li>Gradually shift volumes from Asian suppliers to European plants.</li>
+                        <li>Use CO₂, recycling content and traceability as key selection criteria.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Wiring & Connectivity -->
+            <article class="bar">
+                <div class="bar-header">
+                    <div class="bar-title">Wiring &amp; Connectivity</div>
+                    <div class="bar-tag">Leverage · Cost & lead time</div>
+                </div>
+                <div class="bar-content">
+                    <ul>
+                        <li>Relocate standard harnesses to Europe / nearshore countries.</li>
+                        <li>Use reverse auctions for commoditised connectors and cables.</li>
+                        <li>Reduce lead times by sourcing closer to assembly plants.</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="footnote">
+            These three categories generate most of the Asia → Europe dependency reduction by 2026.
+        </div>
+    </section>
+
+    <!-- RIGHT SIDE -->
+    <section class="right-column">
+        <div>
+            <div class="right-header-title">Categories already mainly European</div>
+            <div class="right-header-text">
+                For these families, the priority is to keep a strong European footprint
+                and optimise total cost and service rather than changing the sourcing footprint.
+            </div>
+        </div>
+
+        <article class="right-card">
+            <ul>
+                <li><strong>Plastics &amp; chassis</strong> – maintain EU sourcing; develop eco-design and circular materials.</li>
+                <li><strong>Logistics</strong> – optimise cost and CO₂ emissions within the existing EU-centric network.</li>
+                <li><strong>Indirect purchases</strong> – consolidate suppliers and contracts, focus on TCO and compliance.</li>
+            </ul>
+        </article>
+    </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slide 14 – KPI Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        :root {
+            --navy-main: #0b1f3f;
+            --navy-soft: #0a1632;
+            --panel-navy: #10234a;
+            --accent: #38bdf8;
+            --accent-soft: #0ea5e9;
+            --text-main: #f9fafb;
+            --text-muted: #cbd5e1;
+            --border-soft: rgba(226, 232, 240, 0.38);
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--navy-soft);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            padding: 48px 82px 40px 82px;
+            background:
+                radial-gradient(circle at 16% 14%, rgba(56, 189, 248, 0.22), transparent 55%),
+                radial-gradient(circle at 16% 14%, #123060 0, #0a1632 52%);
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr);
+            column-gap: 40px;
+            align-items: center;
+        }
+
+        /* LEFT COLUMN */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .brand-title {
+            text-transform: uppercase;
+            letter-spacing: 0.20em;
+            font-size: 19px;
+            color: var(--text-muted);
+        }
+
+        .brand-sub {
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .intro-title {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.55;
+            max-width: 800px;
+        }
+
+        .kpi-grid {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 18px;
+        }
+
+        .kpi-card {
+            background: radial-gradient(circle at 0% 0%, #132a52, #0c1d3c 82%);
+            border-radius: 22px;
+            border: 1px solid var(--border-soft);
+            padding: 14px 18px;
+            box-shadow: 0 20px 38px rgba(8, 19, 41, 0.55);
+            font-size: 16px;
+            line-height: 1.55;
+        }
+
+        .kpi-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .kpi-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .kpi-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .kpi-card li {
+            position: relative;
+            padding-left: 13px;
+            margin-bottom: 4px;
+        }
+
+        .kpi-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .kpi-highlight {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        .footnote {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* RIGHT COLUMN – chart */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chart-card {
+            background: radial-gradient(circle at 0% 0%, #132a52, #0c1d3c 85%);
+            border-radius: 24px;
+            border: 1px solid var(--border-soft);
+            padding: 16px 20px 18px 20px;
+            box-shadow: 0 22px 40px rgba(8, 19, 41, 0.6);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .chart-tag {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 0;
+        }
+
+        .chart-notes {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.55;
+        }
+
+        .chart-notes span {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="slide">
+
+    <!-- LEFT – KPI framework -->
+    <section class="left-column">
+        <div>
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-sub">Slide 14 · KPI framework</div>
+        </div>
+
+        <div>
+            <h1 class="intro-title">KPI framework to monitor the 2026 roadmap</h1>
+            <p class="intro-text">
+                The strategy is steered through a concise set of KPIs covering cost, service,
+                sustainability and risk. KPIs are reviewed regularly with the purchasing team
+                and shared with management through dashboards.
+            </p>
+        </div>
+
+        <div class="kpi-grid">
+            <!-- Cost / TCO -->
+            <article class="kpi-card">
+                <div class="kpi-title">Cost &amp; TCO</div>
+                <div class="kpi-sub">How much we pay for each category.</div>
+                <ul>
+                    <li>Total cost of ownership per family (incl. freight &amp; duties).</li>
+                    <li>Year-on-year savings vs 2024 baseline on strategic categories.</li>
+                    <li>Unit cost delta Asia vs Europe after relocalisation.</li>
+                </ul>
+            </article>
+
+            <!-- Service & Quality -->
+            <article class="kpi-card">
+                <div class="kpi-title">Service &amp; Quality</div>
+                <div class="kpi-sub">Performance seen by plants.</div>
+                <ul>
+                    <li>QCDP score: <span class="kpi-highlight">87 (EU) vs 81 (Asia)</span>.</li>
+                    <li>Quality score: <span class="kpi-highlight">89 (EU) vs 85 (Asia)</span>.</li>
+                    <li>On-time delivery index: <span class="kpi-highlight">86 (EU) vs 81 (Asia)</span>.</li>
+                </ul>
+            </article>
+
+            <!-- Sustainability -->
+            <article class="kpi-card">
+                <div class="kpi-title">Sustainability &amp; CO₂</div>
+                <div class="kpi-sub">Compliance with EU Battery Regulation &amp; ESG.</div>
+                <ul>
+                    <li>Average RSE / ESG score: <span class="kpi-highlight">84 (EU) vs 77 (Asia)</span>.</li>
+                    <li>CO₂ scope 3 per € purchased (batteries &amp; electronics).</li>
+                    <li>Share of spend with low-carbon or certified suppliers.</li>
+                </ul>
+            </article>
+
+            <!-- Risk & Dependency -->
+            <article class="kpi-card">
+                <div class="kpi-title">Risk &amp; Dependency</div>
+                <div class="kpi-sub">Exposure to geography and single suppliers.</div>
+                <ul>
+                    <li>Share of spend in Asia vs Europe
+                        (<span class="kpi-highlight">Asia 32% → 20%</span>, Europe &gt; 60%).</li>
+                    <li>Number of single-sourced items and top-5 supplier dependency.</li>
+                    <li>Risk index by country (geopolitics, lead time, compliance).</li>
+                </ul>
+            </article>
+        </div>
+
+        <div class="footnote">
+            These KPIs are consolidated in Eurimobility’s dashboards and supplier scorecards
+            to validate the 2026 targets and trigger corrective actions when thresholds are crossed.
+        </div>
+    </section>
+
+    <!-- RIGHT – Histogram Service & Quality -->
+    <section class="right-column">
+        <article class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">Service &amp; Quality – Europe vs Asia</div>
+                <div class="chart-tag">QCDP � Quality � Delivery � RSE</div>
+            </div>
+
+            <div class="chart-wrapper">
+                <!-- Histogramme SVG -->
+                <svg width="560" height="260" viewBox="0 0 560 260">
+                    <!-- Axes -->
+                    <line x1="60" y1="30" x2="60" y2="210"
+                          stroke="rgba(226,232,240,0.35)" stroke-width="1" />
+                    <line x1="60" y1="210" x2="520" y2="210"
+                          stroke="rgba(226,232,240,0.35)" stroke-width="1" />
+
+                    <!-- Gridlines & Y labels (0-100) -->
+                    <g font-size="10" fill="var(--text-muted)" stroke="none">
+                        <!-- 0 -->
+                        <line x1="60" y1="210" x2="520" y2="210"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="46" y="213">0</text>
+
+                        <!-- 20 -->
+                        <line x1="60" y1="180" x2="520" y2="180"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="40" y="183">20</text>
+
+                        <!-- 40 -->
+                        <line x1="60" y1="150" x2="520" y2="150"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="40" y="153">40</text>
+
+                        <!-- 60 -->
+                        <line x1="60" y1="120" x2="520" y2="120"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="40" y="123">60</text>
+
+                        <!-- 80 -->
+                        <line x1="60" y1="90" x2="520" y2="90"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="40" y="93">80</text>
+
+                        <!-- 100 -->
+                        <line x1="60" y1="60" x2="520" y2="60"
+                              stroke="rgba(226,232,240,0.08)" stroke-width="1" />
+                        <text x="34" y="63">100</text>
+                    </g>
+
+                    <!-- Bars - Europe (accent) -->
+                    <!-- QCDP EU: 87 -->
+                    <rect x="100" y="80" width="26" height="130"
+                          fill="var(--accent)" fill-opacity="0.95" />
+                    <!-- Quality EU: 89 -->
+                    <rect x="200" y="77" width="26" height="133"
+                          fill="var(--accent)" fill-opacity="0.95" />
+                    <!-- Delivery EU: 86 -->
+                    <rect x="300" y="81" width="26" height="129"
+                          fill="var(--accent)" fill-opacity="0.95" />
+                    <!-- RSE EU: 84 -->
+                    <rect x="400" y="84" width="26" height="126"
+                          fill="var(--accent)" fill-opacity="0.95" />
+
+                    <!-- Bars - Asia (accent soft, plus clair) -->
+                    <!-- QCDP Asia: 81 -->
+                    <rect x="132" y="89" width="26" height="121"
+                          fill="var(--accent-soft)" fill-opacity="0.65" />
+                    <!-- Quality Asia: 85 -->
+                    <rect x="232" y="83" width="26" height="127"
+                          fill="var(--accent-soft)" fill-opacity="0.65" />
+                    <!-- Delivery Asia: 81 -->
+                    <rect x="332" y="89" width="26" height="121"
+                          fill="var(--accent-soft)" fill-opacity="0.65" />
+                    <!-- RSE Asia: 77 -->
+                    <rect x="432" y="95" width="26" height="115"
+                          fill="var(--accent-soft)" fill-opacity="0.65" />
+
+                    <!-- X-axis labels -->
+                    <g font-size="11" fill="var(--text-muted)">
+                        <text x="113" y="232">QCDP</text>
+                        <text x="213" y="232">Quality</text>
+                        <text x="313" y="232">Delivery</text>
+                        <text x="413" y="232">RSE</text>
+                    </g>
+
+                    <!-- Legend -->
+                    <g font-size="11" fill="var(--text-muted)">
+                        <rect x="90" y="24" width="10" height="10"
+                              fill="var(--accent)" fill-opacity="0.95" />
+                        <text x="106" y="33">Europe</text>
+
+                        <rect x="170" y="24" width="10" height="10"
+                              fill="var(--accent-soft)" fill-opacity="0.65" />
+                        <text x="186" y="33">Asia</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="chart-notes">
+                Europe shows consistently higher <span>QCDP</span>, <span>quality</span> and
+                <span>delivery</span> scores than Asia, which supports the decision to increase
+                the share of European suppliers for strategic categories.
+            </div>
+        </article>
+    </section>
+
+</div>
+</body>
+</html>
+
+

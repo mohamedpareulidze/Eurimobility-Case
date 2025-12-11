@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 8 – SWOT Analysis</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020818;
+            --accent: #38bdf8;
+            --accent-soft: #60a5fa;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        #slide8 {
+            width: 100vw;
+            height: 100vh;
+            padding: 40px 72px 32px 72px;
+            background: radial-gradient(circle at 16% 14%, #020c25 0, #020617 48%);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* HEADER */
+        .header-top {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 18px; /* 16 -> +10% */
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .section-kicker {
+            font-size: 12px; /* 11 -> +10% approx */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 35px; /* 32 -> +10% approx */
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 17px; /* 15 -> +10% approx */
+            color: #e5e7eb;
+            max-width: 740px;
+            margin-top: 4px;
+        }
+
+        /* LAYOUT */
+        .swot-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr 1.1fr;
+            column-gap: 32px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        /* LEFT / RIGHT STACKS */
+        .swot-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .swot-block {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 78%);
+            border-radius: 20px; /* 18 -> +10% approx */
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            box-shadow: 0 20px 37px rgba(15, 23, 42, 0.85); /* 18,34 -> +10% approx */
+            padding: 14px 16px; /* spacing: unchanged */
+            font-size: 14px; /* 13 -> +10% approx */
+            line-height: 1.5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .swot-block::after {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 0% 0%,
+                        rgba(148, 163, 184, 0.15),
+                        transparent 60%);
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        .swot-block h2 {
+            font-size: 15px; /* 14 -> +10% approx */
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .swot-block ul {
+            list-style: none;
+            padding-left: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .swot-block li {
+            margin-bottom: 4px;
+            padding-left: 13px;
+            position: relative;
+            color: #e5e7eb;
+        }
+
+        .swot-block li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #9ca3af;
+        }
+
+        .swot-block.strengths h2 { color: #4ade80; }
+        .swot-block.weaknesses h2 { color: #f97373; }
+        .swot-block.opportunities h2 { color: #fde047; }
+        .swot-block.threats h2 { color: #fb923c; }
+
+        /* CENTRE : RING */
+        .center-wrapper {
+            position: relative;
+            width: 352px;  /* 320 -> +10% */
+            height: 352px; /* 320 -> +10% */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background:
+                conic-gradient(
+                    #22c55e 0 90deg,      /* Strengths   */
+                    #f97373 90deg 180deg, /* Weaknesses  */
+                    #facc15 180deg 270deg,/* Opportun.   */
+                    #fb923c 270deg 360deg /* Threats     */
+                );
+            box-shadow:
+                0 22px 44px rgba(15, 23, 42, 0.9),    /* 20,40 -> +10% */
+                0 0 44px rgba(56, 189, 248, 0.18);    /* 40 -> +10% */
+        }
+
+        .inner-circle {
+            position: absolute;
+            inset: 33px; /* 30 -> +10% approx (épaisseur de l’anneau) */
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 0%, #0f172a, #020617 85%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 11px 29px rgba(15, 23, 42, 0.95); /* 10,26 -> +10% approx */
+        }
+
+        .inner-circle h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 37px; /* 34 -> +10% approx */
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #f9fafb;
+        }
+
+        .inner-circle span {
+            font-size: 14px; /* 13 -> +10% approx */
+            color: var(--text-muted);
+        }
+
+        .legend {
+            margin-top: 16px;
+            font-size: 12px; /* 11 -> +10% approx */
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .legend span {
+            margin: 0 8px;
+        }
+
+        .dot-legend {
+            display: inline-block;
+            width: 11px;  /* 10 -> +10% approx */
+            height: 11px; /* 10 -> +10% approx */
+            border-radius: 999px;
+            margin-right: 5px;
+        }
+        .dot-strength { background:#22c55e; }
+        .dot-weak    { background:#f97373; }
+        .dot-opp     { background:#facc15; }
+        .dot-threat  { background:#fb923c; }
+
+        /* FOOTER */
+        .footer {
+            font-size: 12px; /* 11 -> +10% approx */
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer span + span::before {
+            content: "·";
+            padding: 0 7px;
+        }
+
+        .nav-tip { opacity: 0.9; }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 8px;  /* 7 -> +10% approx */
+            height: 8px; /* 7 -> +10% approx */
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--accent-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        /* ANIMATION */
+        @keyframes fade-up {
+            0% { opacity:0; transform:translateY(18px); }
+            100% { opacity:1; transform:translateY(0); }
+        }
+        .swot-layout { animation: fade-up 0.9s ease-out both; }
+
+    </style>
+</head>
+<body>
+<div id="slide8">
+
+    <!-- HEADER -->
+    <header class="header-top">
+        <div class="brand-title">Eurimobility Case Study</div>
+        <div class="section-kicker">Slide 8 · Strategic diagnosis – SWOT</div>
+        <h1 class="slide-title">SWOT analysis – procurement position of Eurimobility</h1>
+        <p class="slide-subtitle">
+            A consolidated view of strengths, weaknesses, opportunities and threats guiding the
+            2026 procurement roadmap and the shift towards more European, resilient sourcing.
+        </p>
+    </header>
+
+    <!-- MAIN SWOT LAYOUT -->
+    <section class="swot-layout">
+
+        <!-- LEFT STACK : Strengths + Opportunities -->
+        <div class="swot-stack">
+            <article class="swot-block strengths">
+                <h2>Strengths</h2>
+                <ul>
+                    <li>Strong European industrial expertise.</li>
+                    <li>Advanced tools: SAP, Jaggaer e-sourcing, BI dashboards.</li>
+                    <li>Good reputation for quality and innovation.</li>
+                    <li>Clear supplier scorecard (QCDP).</li>
+                    <li>Long-term supplier relationships strengthening resilience.</li>
+                </ul>
+            </article>
+
+            <article class="swot-block opportunities">
+                <h2>Opportunities</h2>
+                <ul>
+                    <li>EU funding for reshoring and green sourcing.</li>
+                    <li>AI, automation and reverse auctions to improve efficiency.</li>
+                    <li>European suppliers becoming more competitive.</li>
+                    <li>ESG-driven tenders favour local, responsible supply chains.</li>
+                    <li>EU Battery Regulation &amp; CRMA accelerating European sourcing.</li>
+                </ul>
+            </article>
+        </div>
+
+        <!-- CENTRE : RING -->
+        <div>
+            <div class="center-wrapper">
+                <div class="ring"></div>
+                <div class="inner-circle">
+                    <h1>SWOT</h1>
+                    <span>Analysis – Eurimobility</span>
+                </div>
+            </div>
+            <div class="legend">
+                <span><span class="dot-legend dot-strength"></span>Strengths</span>
+                <span><span class="dot-legend dot-weak"></span>Weaknesses</span>
+                <span><span class="dot-legend dot-opp"></span>Opportunities</span>
+                <span><span class="dot-legend dot-threat"></span>Threats</span>
+            </div>
+        </div>
+
+        <!-- RIGHT STACK : Weaknesses + Threats -->
+        <div class="swot-stack">
+            <article class="swot-block weaknesses">
+                <h2>Weaknesses</h2>
+                <ul>
+                    <li>63% of spend with Asian suppliers (high dependency).</li>
+                    <li>28% of categories with a single supplier.</li>
+                    <li>ESG and compliance processes still immature.</li>
+                    <li>Few strategic partnerships with European suppliers.</li>
+                    <li>Purchasing too cost-driven, limited risk &amp; resilience modeling.</li>
+                </ul>
+            </article>
+
+            <article class="swot-block threats">
+                <h2>Threats</h2>
+                <ul>
+                    <li>China–EU trade tensions and geopolitical shocks.</li>
+                    <li>Disruptions: semiconductor shortage, shipping crises.</li>
+                    <li>Rising prices of lithium and copper.</li>
+                    <li>High switching costs when changing key suppliers.</li>
+                    <li>Reputation and legal risk on ethics, traceability and CO₂ rules.</li>
+                </ul>
+            </article>
+        </div>
+
+    </section>
+
+
+
+</div>
+</body>
+</html>

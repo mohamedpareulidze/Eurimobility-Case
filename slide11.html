@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 11.1 – Asia Dependency</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020818;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --blue-soft: #60a5fa;
+            --red-soft: #f97373;
+        }
+
+        /* SLIDE LAYOUT – 2 colonnes comme le slide 2 */
+        #slide11-1 {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.05fr);
+            background:
+                radial-gradient(circle at 18% 15%, #020c25 0, #020617 48%);
+            color: var(--text-main);
+            isolation: isolate;
+        }
+
+        /* LEFT SIDE */
+.left-panel {
+    padding: 40px 70px 32px 78px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.content-block {
+    max-width: 640px;
+    margin-top: 0;            /* enlève l’ancien margin-top */
+    align-self: center;       /* ⭐ centre verticalement */
+    justify-self: start;      /* ⭐ reste aligné à gauche */
+}
+
+
+
+        .brand-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 19px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            margin-top: 28px;
+            max-width: 640px;
+        }
+
+        .section-kicker {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 35px;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .slide-subtitle {
+            font-size: 17px;
+            color: #e5e7eb;
+            margin-bottom: 10px;
+        }
+
+        .text-muted {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .key-number {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .key-number span.value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--red-soft);
+        }
+
+        .footer-left {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* RIGHT SIDE – CHART CARD (SVG) */
+        .right-panel {
+            position: relative;
+            padding: 40px 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-card {
+            width: 100%;
+            height: 100%;
+            max-width: 620px;
+            max-height: 420px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(248, 250, 252, 0.25), transparent 60%),
+                radial-gradient(circle at 80% 85%, rgba(30, 64, 175, 1), #020617 80%);
+            box-shadow:
+                0 26px 64px rgba(15, 23, 42, 0.9),
+                0 0 120px rgba(37, 99, 235, 0.7);
+            position: relative;
+            overflow: hidden;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-label {
+            position: absolute;
+            top: 14px;
+            left: 18px;
+            font-size: 12px;
+            line-height: 1.35;
+            color: #e5e7eb;
+            pointer-events: none;
+        }
+
+        .chart-label span {
+            font-weight: 600;
+        }
+
+        /* FOOTER (dots) */
+        .footer-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 72px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--blue-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+    </style>
+</head>
+<body>
+<div id="slide11-1">
+
+    <!-- LEFT -->
+    <section class="left-panel">
+        <header class="brand-block">
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Slide 11.1 · Asia dependency</div>
+        </header>
+
+        <main class="content-block">
+            <div class="section-kicker">Focus – Strategic categories only</div>
+            <h1 class="slide-title">Reducing Asian dependency on key technologies</h1>
+
+            <p class="slide-subtitle">
+                Today, Asian sourcing still covers around half of
+                <strong>electronic components</strong> and <strong>Li-ion batteries</strong>,
+                with a lower but visible exposure on <strong>wiring &amp; connectivity</strong>.
+            </p>
+
+            <p class="text-muted">
+                By 2026, the objective is to bring Asia’s share down to
+                <strong>about 20&nbsp;% overall</strong>, mainly by cutting dependency in
+                Li-ion batteries, wiring/connectivity and electronic components through
+                dual sourcing and new European partners.
+            </p>
+
+            <div class="key-number">
+                <span class="value">32% → 20%</span>
+                <span>Global Asia dependency between 2024 and 2026.</span>
+            </div>
+        </main>
+
+        <div class="footer-left">
+            Strategic focus: Li-ion Batteries · Wiring / Connectivity · Electronic Components
+        </div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="right-panel">
+        <div class="chart-card">
+            <div class="chart-label">
+                <span>Asia dependency by category</span><br />
+                Current vs 2026 – Li-ion batteries, wiring, electronic components
+            </div>
+
+            <!-- Inline SVG chart (no PNG) -->
+            <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg"
+                 role="img" aria-label="Asia dependency current vs 2026 for strategic categories"
+                 style="width:100%; height:100%;">
+                <!-- Background -->
+                <rect x="0" y="0" width="480" height="280" fill="none" />
+
+                <!-- Grid lines -->
+                <g stroke="rgba(148,163,184,0.35)" stroke-width="0.7">
+                    <!-- horizontal -->
+                    <line x1="60" y1="60" x2="440" y2="60" />
+                    <line x1="60" y1="100" x2="440" y2="100" />
+                    <line x1="60" y1="140" x2="440" y2="140" />
+                    <line x1="60" y1="180" x2="440" y2="180" />
+                    <line x1="60" y1="220" x2="440" y2="220" />
+                    <!-- vertical -->
+                    <line x1="60" y1="40" x2="60" y2="240" />
+                    <line x1="220" y1="40" x2="220" y2="240" />
+                    <line x1="380" y1="40" x2="380" y2="240" />
+                </g>
+
+                <!-- Axes -->
+                <g stroke="rgba(148,163,184,0.9)" stroke-width="1.2">
+                    <line x1="60" y1="240" x2="440" y2="240" />
+                    <line x1="60" y1="40" x2="60" y2="240" />
+                </g>
+
+                <!-- Y-axis labels (0–60%) -->
+                <g fill="rgba(226,232,240,0.9)" font-size="10">
+                    <text x="38" y="244">0%</text>
+                    <text x="30" y="220">10%</text>
+                    <text x="30" y="200">20%</text>
+                    <text x="30" y="180">30%</text>
+                    <text x="30" y="160">40%</text>
+                    <text x="30" y="140">50%</text>
+                    <text x="30" y="120">60%</text>
+                </g>
+
+                <!-- X-axis labels: categories -->
+                <g fill="rgba(226,232,240,0.9)" font-size="10">
+                    <text x="120" y="254" text-anchor="middle">Electronic</text>
+                    <text x="120" y="266" text-anchor="middle">Components</text>
+
+                    <text x="280" y="254" text-anchor="middle">Li-ion</text>
+                    <text x="280" y="266" text-anchor="middle">Batteries</text>
+
+                    <text x="400" y="254" text-anchor="middle">Wiring /</text>
+                    <text x="400" y="266" text-anchor="middle">Connectivity</text>
+                </g>
+
+                <!-- Current Asia dependency (solid red line)
+                     Values (approx): EC 51.5%, Batteries 44%, Wiring 13.5%
+                     y = 220 - value * 3  -->
+                <polyline
+                    points="120,66 280,88 400,180"
+                    fill="none"
+                    stroke="#f97373"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                <!-- 2026 target Asia dependency (dashed line)
+                     Values: EC 35%, Batteries 30%, Wiring 10% -->
+                <polyline
+                    points="120,115 280,130 400,190"
+                    fill="none"
+                    stroke="#fecaca"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-dasharray="4 6" />
+
+                <!-- Points for current -->
+                <g fill="#f97373">
+                    <circle cx="120" cy="66" r="4" />
+                    <circle cx="280" cy="88" r="4" />
+                    <circle cx="400" cy="180" r="4" />
+                </g>
+
+                <!-- Points for 2026 -->
+                <g fill="#fecaca">
+                    <circle cx="120" cy="115" r="4" />
+                    <circle cx="280" cy="130" r="4" />
+                    <circle cx="400" cy="190" r="4" />
+                </g>
+
+                <!-- Legend – bottom left (same placement as Europe) -->
+<g fill="rgba(226,232,240,0.95)" font-size="10">
+
+    <!-- Current Asia -->
+    <circle cx="80" cy="190" r="4" fill="#f97373" />
+    <text x="95" y="193">Current Asia dependency</text>
+
+    <!-- 2026 target -->
+    <circle cx="80" cy="206" r="4" fill="#fecaca" />
+    <text x="95" y="209">Asia dependency 2026 (target)</text>
+
+</g>
+
+
+                <!-- Axis titles -->
+                <g fill="rgba(226,232,240,0.9)" font-size="11">
+                    <text x="20" y="150" transform="rotate(-90 20 150)" text-anchor="middle">
+                        % of spend sourced from Asia 
+                    </text>
+                </g>
+            </svg>
+        </div>
+
+    </section>
+
+</div>
+</body>
+</html>

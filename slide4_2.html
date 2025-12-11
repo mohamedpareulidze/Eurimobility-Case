@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 4.2 – Logistics Lead-Time Volatility</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020817;
+            --blue-soft: #60a5fa;
+            --cyan-soft: #22d3ee;
+            --accent-orange: #fb923c;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        /* SLIDE LAYOUT */
+        #slide4_2 {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.05fr);
+            background: radial-gradient(circle at 18% 15%, #020c25 0, #020617 46%);
+            color: var(--text-main);
+            isolation: isolate;
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            padding: 40px 70px 32px 78px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .brand-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            margin-top: 32px;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* centre verticalement */
+            gap: 18px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 16px;
+            color: #e5e7eb;
+        }
+
+        .text-muted {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .panel {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 72%);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 16px 18px;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.7);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        ul.bullets {
+            list-style: none;
+            padding-left: 0;
+            font-size: 14px;
+        }
+
+        ul.bullets li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        ul.bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--cyan-soft);
+        }
+
+        .metrics-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .metric-card {
+            flex: 1;
+            border-radius: 14px;
+            background: #020817;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 8px 10px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        .footer {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--blue-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        /* RIGHT PANEL – CHART CARD */
+        .right-panel {
+            position: relative;
+            padding: 40px 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-card {
+            width: 100%;
+            height: 100%;
+            max-width: 620px;
+            max-height: 420px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(248, 250, 252, 0.25), transparent 60%),
+                radial-gradient(circle at 80% 85%, rgba(30, 64, 175, 1), #020617 80%);
+            box-shadow:
+                0 26px 64px rgba(15, 23, 42, 0.9),
+                0 0 120px rgba(37, 99, 235, 0.7);
+            position: relative;
+            overflow: hidden;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-label {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-size: 12px;
+            color: #e5e7eb;
+            opacity: 0.9;
+        }
+
+        .chart-label span {
+            font-family: "Playfair Display", serif;
+            font-size: 13px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100%{ opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-left {
+            0% { opacity: 0; transform: translateX(20px); }
+            100%{ opacity: 1; transform: translateX(0); }
+        }
+
+        .content-block { animation: fade-up 0.8s ease-out both; }
+        .chart-card   { animation: fade-left 0.8s ease-out 0.1s both; }
+    </style>
+</head>
+
+<body>
+<div id="slide4_2">
+
+    <!-- LEFT SIDE -->
+    <section class="left-panel">
+        <header class="brand-block">
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Price &amp; Commodity Volatility</div>
+        </header>
+
+        <main class="content-block">
+            <div>
+                <div class="section-kicker">Slide 4.2 · Logistics &amp; lead-time volatility</div>
+                <h1 class="slide-title">Logistics shocks amplify the total cost of Asian sourcing</h1>
+            </div>
+
+            <p class="slide-subtitle">
+                Average Asia–Europe shipping time moved from stable to highly volatile.
+            </p>
+
+            <div class="panel">
+                <div class="panel-title">What changed after the post-COVID crisis</div>
+
+                <ul class="bullets">
+                    <li>Shipping costs increased up to ×10 at peak during the crisis.</li>
+                    <li>Average Asia–EU lead times fluctuated between <strong>42 and 63 days</strong>.</li>
+                    <li>Instability drivers: Suez Canal incidents, Red Sea attacks, port congestion and FX volatility.</li>
+                    <li>Asian sourcing now creates strong volatility on the total cost of ownership (TCO).</li>
+                </ul>
+
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-label">Impact</div>
+                        <div class="metric-value">Unstable lead times &amp; cost</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Implication</div>
+                        <div class="metric-value">
+                            Diversify away from Asia &amp; maximise EU sourcing
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </section>
+
+    <!-- RIGHT SIDE -->
+    <section class="right-panel">
+        <div class="chart-card">
+            <div class="chart-label">
+                <span>Asia–Europe average lead time</span><br />
+                Days door-to-door, pre-crisis vs post-crisis (illustrative)
+            </div>
+
+            <!-- SVG chart of shipping time volatility -->
+            <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg"
+                 role="img" aria-label="Asia-Europe shipping lead time volatility"
+                 style="width:100%; height:100%;">
+                <!-- Background -->
+                <rect x="0" y="0" width="480" height="280" fill="none" />
+
+                <!-- Grid -->
+                <g stroke="rgba(148,163,184,0.35)" stroke-width="0.7">
+                    <line x1="60" y1="70" x2="440" y2="70" />
+                    <line x1="60" y1="110" x2="440" y2="110" />
+                    <line x1="60" y1="150" x2="440" y2="150" />
+                    <line x1="60" y1="190" x2="440" y2="190" />
+                    <line x1="60" y1="230" x2="440" y2="230" />
+                    <line x1="60" y1="50"  x2="60"  y2="240" />
+                    <line x1="160" y1="50" x2="160" y2="240" />
+                    <line x1="260" y1="50" x2="260" y2="240" />
+                    <line x1="340" y1="50" x2="340" y2="240" />
+                    <line x1="440" y1="50" x2="440" y2="240" />
+                </g>
+
+                <!-- Axes -->
+                <g stroke="rgba(148,163,184,0.8)" stroke-width="1">
+                    <line x1="60" y1="240" x2="440" y2="240" />
+                    <line x1="60" y1="50" x2="60" y2="240" />
+                </g>
+
+                <!-- X labels -->
+                <g fill="#e5e7eb" font-size="11" text-anchor="middle">
+                    <text x="60"  y="255">2019</text>
+                    <text x="160" y="255">2020</text>
+                    <text x="260" y="255">2021</text>
+                    <text x="340" y="255">2022</text>
+                    <text x="440" y="255">2023–24</text>
+                </g>
+
+                <!-- Y labels (days) -->
+                <g fill="#9ca3af" font-size="10" text-anchor="end">
+                    <text x="52" y="72">70</text>
+                    <text x="52" y="112">60</text>
+                    <text x="52" y="152">50</text>
+                    <text x="52" y="192">40</text>
+                    <text x="52" y="232">30</text>
+                </g>
+
+                <!-- Pre-crisis baseline (~35–40 days) -->
+                <path d="
+M60,210
+L160,205
+L260,205
+L340,205
+L440,205"
+                      fill="none" stroke="rgba(148,163,184,0.8)" stroke-width="1.6"
+                      stroke-dasharray="4 4" stroke-linecap="round" />
+                <text x="300" y="218" fill="#9ca3af" font-size="10">
+                    Pre-crisis baseline ~35–40 days
+                </text>
+
+                <!-- Volatile lead time (illustrative: 38 → 63 → 42 days) -->
+                <!-- Mapping: higher y = shorter time, lower y = longer time -->
+                <!-- 38d ≈ 198, 50d ≈ 150, 63d ≈ 110, 45d ≈ 178, 42d ≈ 188 -->
+
+                <path d="
+M60,198
+C110,190 135,180 160,172
+S220,130 260,110
+S320,145 340,160
+S410,190 440,188"
+                      fill="none" stroke="#22d3ee" stroke-width="2.6"
+                      stroke-linecap="round" stroke-linejoin="round" />
+
+                <!-- Points -->
+                <g fill="#22d3ee">
+                    <circle cx="60"  cy="198" r="3.5" />
+                    <circle cx="160" cy="172" r="3.5" />
+                    <circle cx="260" cy="110" r="3.5" />
+                    <circle cx="340" cy="160" r="3.5" />
+                    <circle cx="440" cy="188" r="3.5" />
+                </g>
+
+                <!-- Emphasis band for 42–63 days -->
+                <rect x="60" y="108" width="380" height="90"
+                      fill="rgba(34,211,238,0.06)" stroke="rgba(34,211,238,0.3)" stroke-width="0.7" />
+                <text x="70" y="122" fill="#cbd5f5" font-size="10">
+                    Volatility zone: 42–63 days
+                </text>
+
+                <!-- Legend -->
+                <g font-size="11" fill="#e5e7eb">
+                    <circle cx="90" cy="64" r="4" fill="#22d3ee" />
+                    <text x="102" y="67">Observed lead time (Asia → Europe)</text>
+
+                    <circle cx="90" cy="82" r="4" fill="rgba(148,163,184,0.9)" />
+                    <text x="102" y="85">Pre-crisis baseline</text>
+                </g>
+            </svg>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eurimobility – Procurement Strategy 2026</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth; /* smooth scroll for TOC */
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f9fafb;
+      color: #020617;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* -------- PAGE LAYOUT -------- */
+    .page-wrapper {
+      min-height: 100vh;
+      padding: 32px 56px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* -------- HERO (TITLE + SLIDER) -------- */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      line-height: 1.2;
+      color: #020617;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: #475569;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      font-size: 12px;
+    }
+
+    .hero-team {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    /* -------- SLIDER -------- */
+    .slider-column {
+      flex: 0 0 auto;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 16 / 9;
+      background: #020617;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.45);
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+    }
+
+    .slide-frame {
+      flex: 0 0 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .slide-frame iframe { border: none; }
+
+    /* Preview mode: scaled down inside the window */
+    #slider.preview-mode .slide-frame iframe {
+      width: 100%;
+      height: 100%;
+      transform: scale(1);
+      transform-origin: center center;
+    }
+
+    /* Normal / fullscreen mode */
+    #slider:not(.preview-mode) .slide-frame iframe {
+      width: 100%;
+      height: 100%;
+      transform: none;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      padding: 6px 12px;
+      cursor: pointer;
+      color: #e5e7eb;
+      user-select: none;
+      background: rgba(15,23,42,0.8);
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      z-index: 10;
+    }
+
+    .arrow:hover { background: rgba(37,99,235,0.95); }
+
+    #prev { left: 12px; }
+    #next { right: 12px; }
+
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      background: #f9fafb;
+      color: #0f172a;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      z-index: 10;
+    }
+
+    .slide-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 14px;
+      font-size: 11px;
+      color: #cbd5e1;
+      background: rgba(15,23,42,0.9);
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      z-index: 10;
+    }
+
+    .slide-indicator span {
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    /* -------- REPORT LAYOUT -------- */
+    .report-section {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      padding-top: 4px;
+    }
+
+    .toc-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .toc ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc a {
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #4b5563;
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .toc a:hover {
+      background: #e5f2ff;
+      color: #1d4ed8;
+    }
+
+    .report-content {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 24px 26px 28px;
+      box-shadow:
+        0 18px 40px rgba(148,163,184,0.35),
+        0 0 0 1px rgba(226,232,240,0.9);
+    }
+
+    .report-content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .report-content h3 {
+      font-size: 18px;
+      margin: 16px 0 4px;
+      color: #111827;
+    }
+
+    .report-content .section-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .report-content p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .report-content .section-block {
+      margin-bottom: 28px;
+    }
+
+    .report-content figure {
+      margin: 14px 0 18px;
+      text-align: center;
+    }
+
+    .report-content figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .report-content figure figcaption {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .report-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 10px 0 16px;
+    }
+
+    .report-content th,
+    .report-content td {
+      border: 1px solid #e5e7eb;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .report-content th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .page-wrapper {
+        padding: 20px 18px 32px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .report-section {
+        grid-template-columns: 1fr;
+      }
+      .toc {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 6px;
+      }
+      .toc ul {
+        flex-direction: row;
+      }
+    }
+
+    /* Fullscreen rules */
+    #slider:fullscreen,
+    #slider:-webkit-full-screen {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      border-radius: 0;
+    }
+
+    #slider:fullscreen .slides,
+    #slider:-webkit-full-screen .slides {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HERO (TITLE + SLIDER) -->
+  <section class="hero">
+    <div class="hero-text-block">
+      <div class="hero-kicker">Eurimobility Case Study · Procurement · Sovereignty · Resilience</div>
+      <h1 class="hero-title">Procurement Strategy 2026 for Eurimobility</h1>
+      <p class="hero-subtitle">
+        From Asian dependence to a resilient European supply chain.
+      </p>
+      <div class="hero-meta">
+        <span class="pill">Master 2 – BDEEM &amp; E-Achat</span>
+        <span class="pill">Academic year 2025–2026</span>
+      </div>
+      <div class="hero-team">
+        <strong>Project team</strong><br>
+        Sudheer Aroosha (BDEEM) · Pareulidze Mohamed (BDEEM)<br>
+        Dina Amrane (E-Achat) · Walid Massoud (E-Achat)<br>
+        <br>
+        <em>December 2025</em>
+      </div>
+    </div>
+
+    <!-- SLIDER (preview + fullscreen) -->
+    <div class="slider-column">
+      <div class="slider preview-mode" id="slider">
+        <div class="slides" id="slides">
+          <!-- ALL SLIDES -->
+          <div class="slide-frame"><iframe src="slide1.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide2.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide3.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide4_1.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide4_2.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide5.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide6.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide7.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide8.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide10.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide11.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide12.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide13.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide14.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide15.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide16.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide17.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide18.html"></iframe></div>
+          <div class="slide-frame"><iframe src="slide19.html"></iframe></div>
+        </div>
+
+        <div class="fullscreen-btn" onclick="toggleFullscreen()">⛶</div>
+        <div id="prev" class="arrow">‹</div>
+        <div id="next" class="arrow">›</div>
+        <div class="slide-indicator">
+          Slide <span id="currentSlide">1</span> / <span id="totalSlides">19</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPORT AREA (filled with report) -->
+  <section class="report-section">
+    <!-- Table of contents -->
+    <nav class="toc">
+      <div class="toc-title">Report structure</div>
+      <ul>
+        <li><a href="#sec-exec">Executive summary</a></li>
+        <li><a href="#sec-context">Context &amp; portfolio</a></li>
+        <li><a href="#sec-diagnosis">Strategic diagnosis</a></li>
+        <li><a href="#sec-nlp">NLP insights</a></li>
+        <li><a href="#sec-strategy">2024–2026 trajectory</a></li>
+        <li><a href="#sec-auctions">Reverse auctions</a></li>
+        <li><a href="#sec-regulation">Regulation &amp; KPIs</a></li>
+        <li><a href="#sec-onepager">Communication one-pager</a></li>
+        <li><a href="#sec-conclusion">Conclusion</a></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <div class="report-content">
+
+      <!-- Executive Summary -->
+      <div class="section-block" id="sec-exec">
+        <div class="section-kicker">Overview</div>
+        <h2>Executive Summary</h2>
+        <p>
+          Eurimobility is a European equipment manufacturer in electric mobility. The company
+          supplies lithium-ion battery cells and modules, electronic boards, wiring harnesses and
+          plastic parts for electric vehicles and micro-mobility solutions. Procurement represents
+          nearly 60% of revenue, which makes the purchasing function a major lever of
+          competitiveness and resilience.
+        </p>
+        <p>
+          In strategic categories like batteries, electronics, and wiring, the purchasing portfolio is
+          heavily exposed to Asia in 2024. Increased traceability, decarbonisation, and ESG control
+          are also required by the European regulatory framework, which includes the EU Battery
+          Regulation, taxonomy, and duty of vigilance. Cost uncertainty is further increased by
+          rising and unstable prices for copper and lithium.
+        </p>
+        <p>
+          The 2024–2026 roadmap seeks to control TCO through Kraljic segmentation,
+          multi-criteria English reverse auctions, and KPI-driven steering; increase the share of
+          European sourcing on these families to about 70%; and drastically reduce Asian
+          dependence in important categories. The ultimate goal of the process is to create a more
+          robust, independent, and environmentally friendly supply chain without sacrificing cost
+          competitiveness.
+        </p>
+      </div>
+
+      <!-- Context, portfolio, raw material volatility -->
+      <div class="section-block" id="sec-context">
+        <div class="section-kicker">Context &amp; portfolio</div>
+        <h2>Context, Procurement Portfolio and Raw Material Volatility</h2>
+        <p>
+          Eurimobility is a mid-size company with headquarters in Lyon and three industrial sites:
+          one assembly site in France, one plant in Slovakia for volume and flexibility, and a site in
+          Vietnam for labor-intensive subassemblies. Its customers are EV OEMs, tier-1 suppliers,
+          fleet operators, and micromobility manufacturers. They demand high standards in terms
+          of quality, traceability, and regulatory compliance.
+        </p>
+        <p>
+          The following six categories will be the main focus of procurement in 2024:
+          electronic components (€105&nbsp;M), Li-ion batteries (€80&nbsp;M), wiring and connectors
+          (€42&nbsp;M), plastics and chassis (€35&nbsp;M), logistics (€22&nbsp;M), and indirect purchases
+          (€28&nbsp;M). Electronics, batteries, and wiring are at the centre of the strategy because
+          they combine high financial weight with high supply risk. The current dependence and
+          the 2026 target for Asia and Europe by purchasing category are shown in the graphs
+          below.
+        </p>
+
+        <figure>
+          <img src="images/dependency_asia.png" alt="Dependence on Asia by category – simulation">
+          <figcaption>Dependence on Asia by category – current situation vs 2026 (simulation).</figcaption>
+        </figure>
+
+        <figure>
+          <img src="images/dependency_europe.png" alt="Dependence on Europe by category – simulation">
+          <figcaption>Dependence on Europe by category – current situation vs 2026 (simulation).</figcaption>
+        </figure>
+
+        <p>
+          Detailed data show Asian dependence above 50% on electronic components and close to
+          45% on batteries, with a target of around 30% and 20% in 2026. On the contrary, it is
+          expected that for the same families, more than 70% will correspond to Europe.
+        </p>
+        <p>
+          Lithium and copper are two main raw materials. Throughout 2023–2024, due to continued
+          oversupply and falling prices, many of the highest-cost mines were shut down or reduced
+          operations. Demand for electric-vehicle batteries and stationary storage rebounded in
+          2025, especially in both China and Europe, while some producers have intentionally
+          restricted their spot volumes. Combined, these factors created a tight market for lithium
+          and copper from January to July 2025, resulting in prices for lithium increasing by more
+          than 100%.
+        </p>
+        <p>
+          Between summer 2025 and now, increasing mining projects ramped up, demand returned
+          to a standard level, and some previously built capacity was brought back into production.
+          Prices have come down somewhat since then but are still significantly higher than 2010s
+          levels. Most outlooks for the next ten years suggest there will be a minimum of tripling
+          global demand for lithium, resulting in structurally high prices with cyclical pressures on
+          those prices. Rather than depend on the “cheap batteries” of the past, Eurimobility must
+          incorporate raw-material risk management into its operations and work with suppliers
+          who can guarantee access to lithium in order for them to compete in the future.
+        </p>
+      </div>
+
+      <!-- Strategic Diagnosis -->
+      <div class="section-block" id="sec-diagnosis">
+        <div class="section-kicker">Strategic diagnosis</div>
+        <h2>Strategic Diagnosis: PESTEL, SWOT, Kraljic and PARTS</h2>
+        <p>
+          The PESTEL analysis underlines four main forces. Geopolitical tensions between China
+          and the EU and logistics instability – including the Suez Canal and container shortage –
+          pose growing risks of disruption. Economic factors include high volatility in raw-material
+          and freight costs. Social expectations for sustainable and local supply chains are
+          increasing. Finally, the European legal framework is being tightened with regard to
+          batteries, CO₂ and duty of vigilance.
+        </p>
+
+        <figure>
+          <img src="images/pestel.jpg" alt="PESTEL summary for Eurimobility">
+          <figcaption>PESTEL summary for Eurimobility.</figcaption>
+        </figure>
+
+        <p>
+          Eurimobility as a procurement organisation has two sides. On one side, Eurimobility
+          benefits from a developed European manufacturing ecosystem; the use of advanced digital
+          technology (like SAP), BI dashboards, and Jaggaer; and a positive reputation related to
+          product quality, innovation, and an existing QCDP scorecard. On the other hand,
+          Eurimobility continues to be highly reliant upon Asian suppliers (63% of total spend) and
+          continues to have a lot of single-source suppliers (about 30% of product lines), while the
+          company's ESG governance framework is still early in its development and has not yet
+          matured enough to enable sufficient risk modelling.
+        </p>
+
+        <figure>
+          <img src="images/swot.jpg" alt="Procurement SWOT for Eurimobility">
+          <figcaption>Procurement SWOT for Eurimobility.</figcaption>
+        </figure>
+
+        <p>
+          The strategic components identified are: batteries (high impact and high risk), cables
+          (high leverage, high volume, high potential for standardisation), plastics (bottleneck),
+          and logistics (indirect).
+        </p>
+
+        <figure>
+          <img src="images/krajlic.jpg" alt="Kraljic matrix – Eurimobility's purchasing portfolio">
+          <figcaption>Kraljic matrix – Eurimobility's purchasing portfolio.</figcaption>
+        </figure>
+
+        <p>
+          According to the analysis of PARTS, the business becomes an explicit and formal game; the
+          participants are: customers of electric vehicles, suppliers in Asia, suppliers in Europe,
+          regulatory agencies, and departments within the firm. Eurimobility provides value
+          through established industrial competence combined with consistent order volumes.
+          Suppliers in Asia offer low-cost, large-capacity, and suppliers in Europe offer proximity,
+          short lead times, and high ESG ratings.
+        </p>
+        <p>
+          The existence of regulations such as the EU Battery Regulation, Duty of Vigilance and the
+          new CO₂ limits gives Eurimobility an opportunity to accelerate the process of moving
+          production back to Europe. The task is to establish reverse auctioning, dual sourcing,
+          early participation of suppliers in the design phase, and dissemination of the Sovereignty
+          Roadmap. The scope of operations should continue to expand by including additional
+          European partners for recycling and PCB supply, assembly, and decreasing reliance on a
+          small group of Asian suppliers.
+        </p>
+      </div>
+
+      <!-- NLP Insights -->
+      <div class="section-block" id="sec-nlp">
+        <div class="section-kicker">Market signals</div>
+        <h2>NLP Insights and Market Signals</h2>
+        <p>
+          An NLP analysis was conducted on a corpus of articles and reports on batteries, critical
+          raw materials and supply chains. The distribution of sentiment scores is globally neutral
+          to slightly positive, with a non-negligible negative tail linked to shortages, dependence on
+          rare metals and geopolitical risk.
+        </p>
+
+        <figure>
+          <img src="images/polarity_distribution.png" alt="Distribution of polarity scores">
+          <figcaption>Distribution of polarity scores on the “batteries &amp; supply chain” corpus.</figcaption>
+        </figure>
+
+        <p>
+          The terms that come up within the global word cloud are <em>supply chain</em>,
+          <em>battery</em>, <em>rare metal</em>, <em>stress due</em>, <em>European supply</em>,
+          <em>Net Zero Industry Act</em>. This confirms that, within market narrative, security of
+          supply in metals and European industrial sovereignty have become core themes, together
+          with battery cost and decarbonisation.
+        </p>
+
+        <figure>
+          <img src="images/wordcloud_global.png" alt="Global wordcloud – main themes">
+          <figcaption>Global wordcloud – main themes of the corpus.</figcaption>
+        </figure>
+
+        <p>
+          These signals support a strategy that focuses on the strengthening of European suppliers
+          while systematically integrating ESG and CO₂ criteria into procurement decisions.
+        </p>
+      </div>
+
+      <!-- 2024–2026 Strategy -->
+      <div class="section-block" id="sec-strategy">
+        <div class="section-kicker">Strategy 2024–2026</div>
+        <h2>2024–2026 Strategy: Sovereignty Trajectory</h2>
+        <p>
+          The 2024–2026 regional trajectory targets a gradual reduction in Asia's share and a rise
+          in Europe as the primary supply base, while maintaining some diversification.
+        </p>
+
+        <figure>
+          <img src="images/regional_dependancy.jpg" alt="Regional dependence trends 2024–2026">
+          <figcaption>Regional dependence trends 2024–2026 (internal indices).</figcaption>
+        </figure>
+
+        <p>
+          For electronic parts, the company plans to move a large share of orders away from
+          Chinese and Vietnamese vendors and place it with European firms like TechNova EU,
+          BMK Group and Velec Polska through multi-year contracts and dual-source deals. For
+          batteries, Eurimobility will keep raising volumes with European producers – Northvolt,
+          ACC, Verkor, LFP Europe or Tesvolt – while meeting the battery passport and CO₂ rules.
+        </p>
+        <p>
+          The wiring and connector plan rests on near-shoring work to Eastern Europe; Cablotech
+          Polska serves as the main partner. For plastics, logistics and indirect items, the aim is to
+          cut the number of suppliers as well as to consolidate orders with regional vendors that
+          offer competitive terms.
+        </p>
+      </div>
+
+      <!-- Reverse Auctions -->
+      <div class="section-block" id="sec-auctions">
+        <div class="section-kicker">Auctions &amp; simulations</div>
+        <h2>Multi-Criteria English Reverse Auctions and Simulations</h2>
+        <p>
+          The Jaggaer reverse auction platform is an English-style reverse auction (multi-criteria
+          scoring) where suppliers compete against one another by lowering their bids over a
+          predetermined timeframe and can see how their bid ranks against others, but they do not
+          know who their fellow bidders are. When the set time has elapsed, or no more bids have
+          been submitted, the auction is over.
+        </p>
+        <p>
+          The ultimate decision is based on more than just the lowest price. Each supplier is
+          awarded a total score based on four weighted categories: 50% price, 20% quality, 20%
+          ESG, and 10% delivery performance. Suppliers must also meet minimum prerequisites
+          for this auction: capacity to provide the required goods, being based in Europe, or
+          providing a credible plan for reshoring to Europe and complying with regulatory
+          requirements.
+        </p>
+        <p>
+          This auction format works very well with the three families of products that
+          Eurimobility has targeted (electronic components, cables, and lithium-ion batteries)
+          because of the emphasis placed on quality, ESG, and expedited lead times, which are as
+          important as price. Excel simulations cover these three families. The detailed results for
+          each auction are presented below.
+        </p>
+
+        <!-- Auction 1 -->
+        <h3>a. Auction 1 – Electronic Components</h3>
+        <p><strong>Price and savings.</strong></p>
+        <table>
+          <caption>Reverse auction – electronic components: prices and gains.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Region</th>
+              <th>Initial price</th>
+              <th>Final price</th>
+              <th>Gain (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Velec Polska</td><td>Poland</td><td>95</td><td>86</td><td>9.47</td></tr>
+            <tr><td>MicroData FR</td><td>France</td><td>95</td><td>87</td><td>8.42</td></tr>
+            <tr><td>TechNova EU</td><td>Europe</td><td>95</td><td>84</td><td>11.58</td></tr>
+            <tr><td>BMK Group Grm</td><td>Germany</td><td>95</td><td>85</td><td>10.53</td></tr>
+            <tr><td>Enics Suisse</td><td>Switzerland</td><td>95</td><td>86</td><td>9.47</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Multi-criteria scores.</strong></p>
+        <table>
+          <caption>Reverse auction – electronic components: weighted scores.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>ESG score</th>
+              <th>Quality score</th>
+              <th>Lead-time score</th>
+              <th>Final score</th>
+              <th>Rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Velec Polska</td><td>93</td><td>96</td><td>88</td><td>0.9541</td><td>2</td></tr>
+            <tr><td>MicroData FR</td><td>91</td><td>93</td><td>85</td><td>0.9351</td><td>4</td></tr>
+            <tr><td>TechNova EU</td><td>92</td><td>94</td><td>86</td><td>0.9580</td><td>1</td></tr>
+            <tr><td>BMK Group Grm</td><td>90</td><td>92</td><td>87</td><td>0.9450</td><td>3</td></tr>
+            <tr><td>Enics Suisse</td><td>89</td><td>91</td><td>86</td><td>0.9341</td><td>5</td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          TechNova EU tops the list with the highest final score and an 11.6% price reduction,
+          followed by strong gains from Velec Polska and BMK Group, both with robust QCDP
+          performance. Asian suppliers do not figure in this final shortlist, confirming that
+          European vendors can be competitive under a multi-criteria model.
+        </p>
+
+        <!-- Auction 2 -->
+        <h3>b. Auction 2 – Cabling</h3>
+        <p><strong>Price and savings.</strong></p>
+        <table>
+          <caption>Reverse auction – cabling: prices and gains.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Region</th>
+              <th>Initial price</th>
+              <th>Final price</th>
+              <th>Gain (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Nexans FR</td><td>France</td><td>45</td><td>40</td><td>11.11</td></tr>
+            <tr><td>Moldovia SRL</td><td>Romania</td><td>45</td><td>41</td><td>8.89</td></tr>
+            <tr><td>Cablotech Polska</td><td>France</td><td>45</td><td>39</td><td>13.33</td></tr>
+            <tr><td>Baltic Wire</td><td>Baltic States</td><td>45</td><td>40</td><td>11.11</td></tr>
+            <tr><td>EuroConnect</td><td>France</td><td>45</td><td>38</td><td>15.56</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Multi-criteria scores.</strong></p>
+        <table>
+          <caption>Reverse auction – cabling: weighted scores.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>ESG score</th>
+              <th>Quality score</th>
+              <th>Lead-time score</th>
+              <th>Final score</th>
+              <th>Rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Nexans FR</td><td>89</td><td>90</td><td>92</td><td>0.9237</td><td>3</td></tr>
+            <tr><td>Moldovia SRL</td><td>87</td><td>88</td><td>90</td><td>0.9005</td><td>5</td></tr>
+            <tr><td>Cablotech Polska</td><td>90</td><td>91</td><td>91</td><td>0.9398</td><td>2</td></tr>
+            <tr><td>Baltic Wire</td><td>88</td><td>89</td><td>89</td><td>0.9167</td><td>4</td></tr>
+            <tr><td>EuroConnect</td><td>89</td><td>90</td><td>90</td><td>0.9480</td><td>1</td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          EuroConnect reaches the best overall score and realises the highest gain with 15.6%.
+          The performance of Cablotech Polska has also been very good, and this company remains
+          an important partner for near-shoring. The auction confirms that the cabling category is
+          well suited to competitive tendering with multi-criteria scoring.
+        </p>
+
+        <!-- Auction 3 -->
+        <h3>c. Auction 3 – Li-ion Batteries</h3>
+        <p><strong>Price and savings.</strong></p>
+        <table>
+          <caption>Reverse auction – Li-ion batteries: prices and gains.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>Region</th>
+              <th>Initial price</th>
+              <th>Final price</th>
+              <th>Gain (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>LFP Europe 6</td><td>France</td><td>100</td><td>88</td><td>12.0</td></tr>
+            <tr><td>EcoVolt 32</td><td>Portugal</td><td>100</td><td>90</td><td>10.0</td></tr>
+            <tr><td>NewPower EU</td><td>Portugal</td><td>100</td><td>89</td><td>15.0</td></tr>
+            <tr><td>Tesvolt</td><td>Germany</td><td>100</td><td>86</td><td>14.0</td></tr>
+            <tr><td>Leclanché</td><td>Switzerland</td><td>100</td><td>87</td><td>13.0</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Multi-criteria scores.</strong></p>
+        <table>
+          <caption>Reverse auction – Li-ion batteries: weighted scores.</caption>
+          <thead>
+            <tr>
+              <th>Supplier</th>
+              <th>ESG score</th>
+              <th>Quality score</th>
+              <th>Lead-time score</th>
+              <th>Final score</th>
+              <th>Rank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>LFP Europe 6</td><td>94</td><td>95</td><td>90</td><td>0.9504</td><td>2</td></tr>
+            <tr><td>EcoVolt 32</td><td>90</td><td>92</td><td>88</td><td>0.9266</td><td>5</td></tr>
+            <tr><td>NewPower EU</td><td>92</td><td>94</td><td>87</td><td>0.9470</td><td>3</td></tr>
+            <tr><td>Tesvolt</td><td>91</td><td>93</td><td>89</td><td>0.9511</td><td>1</td></tr>
+            <tr><td>Leclanché</td><td>90</td><td>91</td><td>88</td><td>0.9382</td><td>4</td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          Tesvolt leads with the lowest bid price and a 14% decrease in price, but LFP Europe 6 and
+          NewPower EU also provide compelling returns coupled with good ESG profiles. The
+          auction proves that European battery manufacturers are competitive under demanding
+          QCDP and regulatory standards.
+        </p>
+
+        <!-- Impact on geographic dependence -->
+        <h3>d. Impact on Geographic Dependence</h3>
+        <p>
+          Beyond price and scores, the auctions support a tangible rebalancing of geographic
+          exposure. The annual transfers of volumes from Asian to European suppliers are
+          summarised below.
+        </p>
+
+        <table>
+          <caption>Simulated annual transfers from Asia to Europe (extract).</caption>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Asian supplier</th>
+              <th>European supplier</th>
+              <th>Effect on dependence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Electronic components</td>
+              <td>Foxton (China) – €7&nbsp;M</td>
+              <td>TechNova EU</td>
+              <td>Reduction of Asian dependence: Asia 51% → 32%; increase in European share: 49% → 68%.</td>
+            </tr>
+            <tr>
+              <td>Electronic components</td>
+              <td>LingTech (Vietnam) – €3.8&nbsp;M</td>
+              <td>Velec Polska</td>
+              <td>Reinforcement of the PCB base in Eastern Europe, lowering the risk of disruption on critical components.</td>
+            </tr>
+            <tr>
+              <td>Li-ion batteries</td>
+              <td>BYE Power (China) – €5&nbsp;M</td>
+              <td>Tesvolt / LFP Europe</td>
+              <td>Drop in Asian dependence: 45% → 35%; rise in Europe: 55% → 65%.</td>
+            </tr>
+            <tr>
+              <td>Cabling / connectors</td>
+              <td>Hanwei Cables (China) – €5.67&nbsp;M</td>
+              <td>Cablotech Polska</td>
+              <td>Near elimination of Asian dependence: 14% → 0%; Europe 71% → 85%.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Overall, savings in the range of 10–15% are achieved compared to initial quotes, without
+          degrading lead times. Most importantly, European suppliers show higher QCDP scores
+          than Asian competitors, thanks to better quality, logistics reliability and ESG
+          performance. The multi-criteria English reverse auction therefore helps reconcile TCO
+          reduction, European sovereignty and improved overall performance.
+        </p>
+      </div>
+
+      <!-- Regulation & KPIs -->
+      <div class="section-block" id="sec-regulation">
+        <div class="section-kicker">Regulation &amp; KPIs</div>
+        <h2>Regulatory Framework and KPIs</h2>
+        <p>
+          KPIs developed for steering Eurimobility's procurement strategy are in line with the latest
+          European regulatory requirements and notably the EU Battery Regulation (Regulation
+          EU&nbsp;2023/1542). They reflect the new binding standards concerning carbon footprint
+          reporting, recycling targets, and traceability obligations to ensure that Eurimobility's
+          procurement decisions stand in compliance with the sustainability and circular-economy
+          objectives as set by European legislation.
+        </p>
+
+        <p><strong>Key regulatory elements</strong></p>
+
+        <p>
+          <strong>Battery Passport – mandatory from February 2027.</strong>
+          A digital identity linked with every battery greater than 2&nbsp;kWh, EV batteries, and
+          industrial batteries will be made available via a QR code that is physically attached to the
+          product. Information data shall include origin of raw materials, chemical composition,
+          percentage of recycled content, carbon footprint (CO₂), and usage history in terms of
+          number of charge cycles and state of health. It also gives recommendations on recycling
+          and second-life applications. Its objective is to ensure full traceability, total transparency
+          for consumers and professionals, and rapid acceleration toward a circular battery
+          economy.
+        </p>
+
+        <p>
+          <strong>CO₂/kWh clauses (mandatory carbon footprint declaration).</strong>
+          Regulation EU&nbsp;2023/1542 prescribes strict sustainability, traceability, and transparency
+          rules. All EV, LMT, and industrial batteries above 2&nbsp;kWh shall declare CO₂ footprint
+          by means of the PEF methodology for their entire life cycle, from raw-material extraction
+          to end-of-life. Carbon performance classes and maximum thresholds must be respected
+          to allow the product on the EU market.
+        </p>
+
+        <p>
+          The implementation timeline is progressive: the carbon-footprint declaration will be
+          mandatory for EV batteries in 2025, will extend to industrial batteries in 2026, and by
+          2027, the Battery Passport will be compulsory and must integrate verified CO₂ data.
+        </p>
+
+        <p>
+          These regulatory demands directly impact Eurimobility's procurement KPIs, which must
+          now include carbon intensity in g&nbsp;CO₂/kWh, the proportion of recycled content, and
+          supplier traceability-compliance rates.
+        </p>
+
+        <p><strong>KPIs supporting regulatory compliance and resilience</strong></p>
+
+        <p>
+          To turn these constraints into operational guidance, Eurimobility organises its dashboard
+          around several dimensions, each one associated with specific regulations:
+        </p>
+
+        <table>
+          <caption>Examples of KPIs aligned with EU regulatory requirements.</caption>
+          <thead>
+            <tr>
+              <th>Regulatory focus</th>
+              <th>Illustrative KPIs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EU Battery Regulation – CO₂ footprint</td>
+              <td>
+                Average carbon intensity per battery system (g CO₂/kWh); share of suppliers
+                providing PEF-compliant CO₂ data; percentage of awarded volumes within the best
+                carbon-performance classes.
+              </td>
+            </tr>
+            <tr>
+              <td>EU Battery Regulation – Battery Passport &amp; traceability</td>
+              <td>
+                Share of batteries with complete digital passport; traceability-completeness score
+                (origin of raw materials, recycled content, state-of-health data); percentage of
+                suppliers connected to passport IT interfaces.
+              </td>
+            </tr>
+            <tr>
+              <td>Recycling and circularity targets</td>
+              <td>
+                Percentage of recycled content used in cathode/anode materials; percentage of
+                suppliers with certified recycling schemes in place; volume of end-of-life batteries
+                routed to approved recyclers.
+              </td>
+            </tr>
+            <tr>
+              <td>ESG and duty of vigilance</td>
+              <td>
+                Share of spend covered by ESG audits; number of suppliers where a human-rights
+                or environmental risk was found and where a plan to lower that risk exists; lead
+                time between the report of an incident and its remediation.
+              </td>
+            </tr>
+            <tr>
+              <td>Supply risk and critical raw materials (CRMA logic)</td>
+              <td>
+                Supplier-diversification index for lithium, nickel, cobalt and copper; exposure to
+                single-country sources; share of purchases with European or “low-risk” origin.
+              </td>
+            </tr>
+            <tr>
+              <td>Cost and TCO</td>
+              <td>
+                TCO per category; savings realised through multi-criteria auctions; share of
+                contracts including CO₂/kWh clauses and indexation mechanisms.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          By mixing those KPIs with geographic and category signals like the share of Asia versus
+          Europe and the single-source ratio, Eurimobility tracks cost, service, regulatory
+          compliance, carbon performance and resilience.
+        </p>
+      </div>
+
+      <!-- Communication one pager -->
+      <div class="section-block" id="sec-onepager">
+        <div class="section-kicker">Communication</div>
+        <h2>Communication One-Pager</h2>
+        <figure>
+          <img src="images/one pager.png" alt="Communication one-pager">
+          <figcaption>Visual one-pager summarising the strategy and regional dependence trends.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Conclusion -->
+      <div class="section-block" id="sec-conclusion">
+        <div class="section-kicker">Conclusion</div>
+        <h2>Conclusion</h2>
+        <p>
+          Eurimobility starts from a typical situation for a European equipment manufacturer:
+          deeply integrated into global supply chains but exposed to growing risks on costs, lead
+          times, critical metals and regulation. The proposed strategy combines a structured
+          diagnosis, the use of digital tools (NLP, BI, e-sourcing platform), targeted reshoring of
+          volumes to European suppliers and the deployment of multi-criteria English reverse
+          auctions.
+        </p>
+        <p>
+          This plan lowers reliance on Asia, shores up the European base, sharpens control over raw
+          material risk (in particular for lithium) and meets the higher demands of customers,
+          regulators and investors on sustainability. By 2026 Eurimobility will run a procurement
+          model that is more sovereign and resilient but also ready for the transition, in step with
+          the European energy and industrial agenda.
+        </p>
+        <p>
+          The next steps are to finalise framework agreements with new European partners, to turn
+          multi-criteria auctions for standardisable families into routine practice, and to set up a
+          cross-functional “critical materials” committee that will give early warning of future
+          strain cycles on strategic metals.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  let index = 0;
+  const slider = document.getElementById("slider");
+  const slidesContainer = document.getElementById("slides");
+  const frames = document.querySelectorAll(".slide-frame");
+  const totalSlides = frames.length;
+
+  const currentSlideSpan = document.getElementById("currentSlide");
+  const totalSlidesSpan = document.getElementById("totalSlides");
+  totalSlidesSpan.textContent = totalSlides;
+
+  function updateSlider() {
+    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+    currentSlideSpan.textContent = index + 1;
+  }
+
+  document.getElementById("next").onclick = () => {
+    index = (index + 1) % totalSlides;
+    updateSlider();
+  };
+
+  document.getElementById("prev").onclick = () => {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  };
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      index = (index + 1) % totalSlides;
+      updateSlider();
+    }
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      index = (index - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    }
+  });
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      slider.classList.remove("preview-mode");
+      if (slider.requestFullscreen) slider.requestFullscreen();
+      else if (slider.webkitRequestFullscreen) slider.webkitRequestFullscreen();
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }
+  }
+
+  function onFsChange() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      slider.classList.add("preview-mode");
+    }
+  }
+
+  document.addEventListener("fullscreenchange", onFsChange);
+  document.addEventListener("webkitfullscreenchange", onFsChange);
+
+  // initial preview mode
+  slider.classList.add("preview-mode");
+</script>
+
+</body>
+</html>

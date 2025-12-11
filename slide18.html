@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 18 – Communication Strategy</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020818;
+            --accent: #38bdf8;
+            --accent-soft: #60a5fa;
+            --accent-green: #22c55e;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-soft: rgba(148, 163, 184, 0.6);
+        }
+
+        #slide18 {
+            width: 100vw;
+            height: 100vh;
+            padding: 40px 72px 36px 72px;
+            background:
+                radial-gradient(circle at 16% 12%, #020c25 0, #020617 50%);
+            color: var(--text-main);
+
+            display: grid;
+            grid-template-columns: 1.05fr 1.45fr;
+            column-gap: 46px;
+            isolation: isolate;
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            row-gap: 25px;
+        }
+
+        .brand-block {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 21px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            justify-content: center;   /* centre verticalement dans la zone centrale */
+            align-self: center;        /* centre la zone centrale entre header et footer */
+        }
+
+        .section-kicker {
+            font-size: 14px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 37px;
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 18px;
+            color: #e5e7eb;
+            line-height: 1.55;
+        }
+
+        .insight-box {
+            margin-top: 6px;
+            font-size: 14px;
+            line-height: 1.55;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px dashed rgba(148,163,184,0.6);
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 85%);
+        }
+
+        .insight-box strong {
+            color: var(--accent-soft);
+        }
+
+        .left-footer {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .card {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 82%);
+            border-radius: 25px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 25px 45px rgba(15,23,42,0.9);
+            padding: 22px 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-tag {
+            font-size: 13px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 6px;
+        }
+
+        .card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-soft);
+        }
+
+        .timeline {
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(148,163,184,0.4);
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .timeline-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .timeline-step-label {
+            font-weight: 600;
+            color: var(--accent-soft);
+            margin-bottom: 2px;
+        }
+
+        .timeline-step-text {
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100%{ opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-left {
+            0% { opacity: 0; transform: translateX(22px); }
+            100%{ opacity: 1; transform: translateX(0); }
+        }
+
+        .content-block { animation: fade-up 0.9s ease-out both; }
+        .right-panel  { animation: fade-left 0.9s ease-out 0.05s both; }
+    </style>
+</head>
+
+<body>
+<div id="slide18">
+
+    <!-- LEFT SIDE -->
+    <section class="left-panel">
+        <header class="brand-block">
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Slide 18 · Communication strategy</div>
+        </header>
+
+        <main class="content-block">
+            <div>
+                <div class="section-kicker">2026 – Internal &amp; external messages</div>
+                <h1 class="slide-title">Communicating the sourcing transformation</h1>
+            </div>
+
+            <p class="slide-subtitle">
+                The goal is to make the new European sourcing model clear,
+                accepted and supported by employees, clients and suppliers,
+                while managing expectations on cost and operations.
+            </p>
+
+            <div class="insight-box">
+                <strong>Key idea:</strong> simple, consistent messages
+                are critical to secure buy-in and make the 2026 roadmap tangible
+                for all stakeholders.
+            </div>
+        </main>
+
+        <footer class="left-footer">
+            2026 communication is aligned with major sourcing milestones (auctions, awards, KPI reviews).
+        </footer>
+    </section>
+
+    <!-- RIGHT SIDE : inchangé -->
+    <section class="right-panel">
+
+        <article class="card">
+            <div class="card-header">
+                <div class="card-title">2026 internal plan</div>
+                <div class="card-tag">Employees · COMEX · Plants</div>
+            </div>
+
+            <ul>
+                <li>Kick-off message from CEO / COMEX on the 2026 sourcing strategy.</li>
+                <li>Quarterly updates on progress vs. Asia 21% and &gt;60% Europe.</li>
+                <li>Training waves on Jaggaer and new risk / ESG KPIs, with local feedback loops.</li>
+            </ul>
+
+            <div class="timeline">
+                <div class="timeline-title">Internal milestones</div>
+                <div class="timeline-row">
+                    <div>
+                        <div class="timeline-step-label">Q1 2026</div>
+                        <div class="timeline-step-text">Kick-off, CEO message, first trainings.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q2 2026</div>
+                        <div class="timeline-step-text">Auctions launched, dashboards shared.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q3 2026</div>
+                        <div class="timeline-step-text">Review of results, fine-tuning of plans.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q4 2026</div>
+                        <div class="timeline-step-text">Final KPI review and COMEX debrief.</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-header">
+                <div class="card-title">2026 external plan</div>
+                <div class="card-tag">Clients · Suppliers · Institutions</div>
+            </div>
+
+            <ul>
+                <li>Public announcement of the European sourcing strategy and ESG goals.</li>
+                <li>Customer communication on resilience, CO₂ footprint and compliance.</li>
+                <li>Targeted dialogue with key European and Asian suppliers on the transition.</li>
+            </ul>
+
+            <div class="timeline">
+                <div class="timeline-title">External milestones</div>
+                <div class="timeline-row">
+                    <div>
+                        <div class="timeline-step-label">Q1 2026</div>
+                        <div class="timeline-step-text">Press release and customer briefings.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q2 2026</div>
+                        <div class="timeline-step-text">Supplier webinars and onboarding.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q3 2026</div>
+                        <div class="timeline-step-text">Case study with EU partners.</div>
+                    </div>
+                    <div>
+                        <div class="timeline-step-label">Q4 2026</div>
+                        <div class="timeline-step-text">ESG &amp; sovereignty report published.</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+</div>
+</body>
+</html>

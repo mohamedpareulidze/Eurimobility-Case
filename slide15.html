@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 15 – Multi-Criteria Reverse Auction</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020818;
+            --accent: #38bdf8;
+            --accent-soft: #60a5fa;
+            --accent-green: #22c55e;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-soft: rgba(148, 163, 184, 0.6);
+        }
+
+        #slide15 {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+            background:
+                radial-gradient(circle at 16% 12%, #020c25 0, #020617 50%);
+            color: var(--text-main);
+            isolation: isolate;
+            /* on garde le padding externe identique */
+            padding: 40px 72px 36px 72px;
+            column-gap: 46px; /* +15% env. */
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            row-gap: 25px; /* +15% */
+        }
+
+        .brand-block {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* +15% */
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 21px; /* 18 -> +15% */
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 14px; /* 12 -> +15% */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            max-width: 736px; /* 640 -> +15% */
+            display: flex;
+            flex-direction: column;
+            gap: 21px; /* 18 -> +15% */
+            justify-content: center;
+        }
+
+        .section-kicker {
+            font-size: 14px; /* 12 -> +15% */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 39px; /* 34 -> +15% */
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 18px; /* 16 -> +15% */
+            color: #e5e7eb;
+            max-width: 736px;
+        }
+
+        .cards-column {
+            display: flex;
+            flex-direction: column;
+            gap: 14px; /* 12 -> +15% */
+            margin-top: 7px; /* 6 -> +15% */
+        }
+
+        .info-card {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 80%);
+            border-radius: 23px; /* 20 -> +15% */
+            border: 1px solid var(--border-soft);
+            padding: 16px 19px 16px 21px; /* +15% approx. */
+            box-shadow: 0 21px 39px rgba(15, 23, 42, 0.85); /* 18,34 -> +15% */
+        }
+
+        .card-title {
+            font-size: 16px; /* 14 -> +15% */
+            font-weight: 600;
+            margin-bottom: 5px; /* 4 -> +15% */
+        }
+
+        .card-subtitle {
+            font-size: 14px; /* 12 -> +15% */
+            color: var(--text-muted);
+            margin-bottom: 7px; /* 6 -> +15% */
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 15px; /* 13 -> +15% */
+            line-height: 1.45;
+        }
+
+        .info-card li {
+            position: relative;
+            padding-left: 15px; /* 13 -> +15% */
+            margin-bottom: 5px; /* 4 -> +15% */
+        }
+
+        .info-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-soft);
+        }
+
+        .weight-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 9px; /* +15% */
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            font-size: 13px; /* 11 -> +15%+ */
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-right: 7px; /* 6 -> +15% */
+        }
+
+        .weight-pill.primary {
+            border-color: var(--accent-soft);
+            color: var(--accent-soft);
+        }
+
+        .insight-highlight {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        .left-footer {
+            font-size: 14px; /* 12 -> +15% */
+            color: var(--text-muted);
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* 14 -> +15% */
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .process-card,
+        .chart-card {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 85%);
+            border-radius: 25px; /* 22 -> +15% */
+            border: 1px solid var(--border-soft);
+            padding: 18px 21px 18px 21px; /* +15% */
+            box-shadow: 0 25px 51px rgba(15, 23, 42, 0.9); /* 22,44 -> +15% */
+        }
+
+        .process-header,
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 9px; /* 8 -> +15% */
+        }
+
+        .process-title,
+        .chart-title {
+            font-size: 18px; /* 16 -> +15% */
+            font-weight: 600;
+        }
+
+        .process-tag,
+        .chart-tag {
+            font-size: 13px; /* 11 -> +15% */
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* PROCESS STEPPER */
+        .stepper {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px; /* 10 -> +15% */
+            margin-top: 5px; /* 4 -> +15% */
+        }
+
+        .step {
+            text-align: center;
+            font-size: 13px; /* 11 -> +15% */
+            color: var(--text-muted);
+        }
+
+        .step-circle {
+            width: 30px;  /* 26 -> +15% */
+            height: 30px; /* 26 -> +15% */
+            border-radius: 999px;
+            margin: 0 auto 5px auto; /* bottom 4 -> +15% */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px; /* 13 -> +15% */
+            font-weight: 600;
+            background: radial-gradient(circle at 20% 0%,
+                        rgba(56, 189, 248, 0.5),
+                        rgba(15, 23, 42, 0.9));
+            box-shadow:
+                0 0 18px rgba(56, 189, 248, 0.7),  /* 16 -> +15% */
+                0 0 37px rgba(56, 189, 248, 0.35); /* 32 -> +15% */
+        }
+
+        .step-label {
+            line-height: 1.35;
+        }
+
+        /* CHART AREA */
+        .chart-body {
+            margin-top: 7px; /* 6 -> +15% */
+        }
+
+        .chart-note {
+            font-size: 14px; /* 12 -> +15% */
+            color: var(--text-muted);
+            margin-top: 9px; /* 8 -> +15% */
+            line-height: 1.45;
+        }
+
+        /* Simple appear animation */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(18px); } /* 16 -> +15% */
+            100%{ opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-left {
+            0% { opacity: 0; transform: translateX(21px); } /* 18 -> +15% */
+            100%{ opacity: 1; transform: translateX(0); }
+        }
+
+        .content-block { animation: fade-up 0.9s ease-out both; }
+        .right-panel  { animation: fade-left 0.9s ease-out 0.05s both; }
+    </style>
+</head>
+
+<body>
+<div id="slide15">
+
+    <!-- LEFT SIDE -->
+    <section class="left-panel">
+        <header class="brand-block">
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Slide 15 · Multi-criteria reverse auction</div>
+        </header>
+
+        <main class="content-block">
+            <div>
+                <div class="section-kicker">Jaggaer e-sourcing – Electronics, Cables, Batteries</div>
+                <h1 class="slide-title">Designing a multi-criteria reverse auction<br>to favour resilient EU suppliers</h1>
+                <p class="slide-subtitle">
+                    Eurimobility uses a weighted scoring model in Jaggaer: suppliers bid on
+                    price, but the final award also depends on <strong>quality</strong>,
+                    <strong>delivery</strong>, <strong>RSE</strong> and
+                    <strong>European localisation</strong>. The result: competitive prices
+                    <em>and</em> a more sovereign supply base.
+                </p>
+            </div>
+
+            <div class="cards-column">
+                <!-- SCORING MODEL -->
+                <article class="info-card">
+                    <div class="card-title">Scoring model – weights used in the simulations</div>
+                    <div class="card-subtitle">Balanced between cost, performance and ESG.</div>
+
+                    <ul>
+                        <li><span class="weight-pill primary">Price · 50%</span>Final price after auction (vs initial RFQ).</li>
+                        <li><span class="weight-pill">Quality · 20%</span>Supplier quality score (claims, ppm, audits).</li>
+                        <li><span class="weight-pill">RSE · 20%</span>ESG / CSR score (CO₂, social, compliance).</li>
+                        <li><span class="weight-pill">Delivery · 10%</span>Lead-time reliability &amp; OTIF performance.</li>
+                    </ul>
+                </article>
+
+                <!-- RESULTS INSIGHTS -->
+                <article class="info-card">
+                    <div class="card-title">Key outcomes from the 3 auction simulations</div>
+                    <div class="card-subtitle">Electronic components, wiring, Li-ion batteries.</div>
+
+                    <ul>
+                        <li>
+                            In all three families, <span class="insight-highlight">European suppliers rank #1</span>
+                            in the final weighted score.
+                        </li>
+                        <li>
+                            Average savings of around
+                            <span class="insight-highlight">10–15&nbsp;% vs initial price</span>,
+                            while improving ESG and risk.
+                        </li>
+                        <li>
+                            The multi-criteria model naturally favours
+                            competitive European partners instead of pure lowest-bid logic.
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </main>
+
+        <footer class="left-footer">
+            Auction scope: shortlisted EU suppliers only · 1 auction per strategic category (Electronics, Cables, Batteries)
+        </footer>
+    </section>
+
+    <!-- RIGHT SIDE -->
+    <section class="right-panel">
+
+        <!-- PROCESS CARD -->
+        <article class="process-card">
+            <div class="process-header">
+                <div class="process-title">Jaggaer auction process</div>
+                <div class="process-tag">From sourcing to award</div>
+            </div>
+
+            <div class="stepper">
+                <div class="step">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Pre-qualification<br>(EU, RSE, capacity)</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Lot creation<br>(per category)</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Reverse auction<br>(live bidding)</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Multi-criteria<br>scoring (50/20/20/10)</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Award &amp;<br>contracting</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- CHART + EXAMPLE RESULTS -->
+        <article class="chart-card">
+            <div class="chart-header">
+                <div class="chart-title">Example – weighted score ranking (electronics)</div>
+                <div class="chart-tag">Score [0–1] · after auction</div>
+            </div>
+
+            <div class="chart-body">
+                <!-- SVG identique, proportions internes conservées -->
+                <svg viewBox="0 0 460 210" xmlns="http://www.w3.org/2000/svg"
+                     role="img" aria-label="Final weighted scores for electronic suppliers"
+                     style="width:100%; height:100%;">
+                    <!-- background -->
+                    <rect x="0" y="0" width="460" height="210" fill="none"/>
+
+                    <!-- grid -->
+                    <g stroke="rgba(148,163,184,0.35)" stroke-width="0.7">
+                        <line x1="80" y1="40" x2="80" y2="180" />
+                        <line x1="80" y1="180" x2="420" y2="180" />
+                        <line x1="80" y1="150" x2="420" y2="150" />
+                        <line x1="80" y1="120" x2="420" y2="120" />
+                        <line x1="80" y1="90"  x2="420" y2="90" />
+                        <line x1="80" y1="60"  x2="420" y2="60" />
+                    </g>
+
+                    <!-- y labels -->
+                    <g fill="rgba(226,232,240,0.9)" font-size="10">
+                        <text x="48" y="184">0.93</text>
+                        <text x="48" y="154">0.94</text>
+                        <text x="48" y="124">0.95</text>
+                        <text x="48" y="94">0.96</text>
+                    </g>
+
+                    <!-- bars -->
+                    <rect x="96" y="92" width="46" height="88"
+                          fill="url(#barGradientEU)" />
+                    <rect x="158" y="116" width="46" height="64"
+                          fill="rgba(96,165,250,0.85)" />
+                    <rect x="220" y="132" width="46" height="48"
+                          fill="rgba(59,130,246,0.75)" />
+                    <rect x="282" y="162" width="46" height="18"
+                          fill="rgba(37,99,235,0.7)" />
+                    <rect x="344" y="165" width="46" height="15"
+                          fill="rgba(30,64,175,0.7)" />
+
+                    <!-- supplier labels -->
+                    <g fill="#e5e7eb" font-size="9" text-anchor="middle">
+                        <text x="119" y="196">TechNova EU</text>
+                        <text x="181" y="196">Velec</text>
+                        <text x="243" y="196">BMK DE</text>
+                        <text x="305" y="196">MicroData</text>
+                        <text x="367" y="196">Enics</text>
+                    </g>
+
+                    <!-- highlight label -->
+                    <g fill="#93c5fd" font-size="11">
+                        <text x="96" y="52">EU supplier ranked #1</text>
+                    </g>
+
+                    <defs>
+                        <linearGradient id="barGradientEU" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <p class="chart-note">
+                In this example auction on <span>electronic components</span>, TechNova EU
+                achieves the best weighted score thanks to a strong price decrease and high
+                QCDP/RSE ratings. Similar patterns are observed on
+                <span>cables</span> and <span>batteries</span>, confirming that the
+                multi-criteria reverse auction is an effective lever to both
+                <span>reduce TCO</span> and <span>accelerate European sourcing</span>.
+            </p>
+        </article>
+
+    </section>
+</div>
+</body>
+</html>

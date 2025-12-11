@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 3 – Regulation, Benchmark & Geopolitics</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-soft: #020617;
+            --cyan-soft: #22d3ee;
+            --blue-soft: #60a5fa;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        /* ZOOM SLIDE 3 (THIS IS THE FIX) */
+        #slide3 {
+            transform: scale(1.20);
+            transform-origin: 120px 80px;
+            margin-top: 20px;
+        }
+
+        /* FULL-WIDTH SLIDE */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            padding: 40px 80px;
+            background: radial-gradient(circle at 18% 15%, #020c25 0, #020617 46%);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .content-block {
+            max-width: 1150px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .slide-subtitle {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .text-muted {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 1000px;
+        }
+
+        /* GRID OF 3 PANELS */
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            max-width: 1200px;
+        }
+
+        .panel {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 75%);
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 18px 20px;
+            box-shadow: 0 20px 36px rgba(15, 23, 42, 0.7);
+        }
+
+        .panel-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .panel-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        ul.bullets {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.bullets li {
+            font-size: 14px;
+            line-height: 1.45;
+            margin-bottom: 6px;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        ul.bullets li::before {
+            content: "•";
+            color: var(--cyan-soft);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .footer {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--blue-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block { animation: fade 0.9s ease-out both; }
+        .panel-grid   { animation: fade 1s ease-out both; }
+
+    </style>
+</head>
+
+<body>
+
+<!-- FIX: Add ID="slide3" to allow zoom -->
+<div id="slide3" class="slide">
+
+    <div class="brand-title">Eurimobility Case Study</div>
+
+    <div class="content-block">
+        <div class="section-kicker">Slide 3 • External Context</div>
+
+        <h1 class="slide-title">Regulation, Benchmark and Geopolitical Pressure</h1>
+
+        <p class="slide-subtitle">
+            The external environment alone already pushes Eurimobility toward more resilient, local and compliant supply chains.
+        </p>
+
+        <p class="text-muted">
+            EU regulatory pressure, geopolitical instability and industry best practices converge: dependency on Asian suppliers for
+            batteries and electronics is becoming structurally risky and economically fragile.
+        </p>
+
+        <div class="panel-grid">
+
+            <!-- Panel 1: REGULATION -->
+            <div class="panel">
+                <div class="panel-header">Regulation</div>
+                <div class="panel-title">EU rules become hard constraints</div>
+                <div class="panel-subtitle">Compliance defines sourcing choices.</div>
+
+                <ul class="bullets">
+                    <li><strong>EU Battery Regulation</strong>: CO₂ footprint, recycled content, mandatory traceability.</li>
+                    <li><strong>EU Taxonomy</strong>: green financing depends on responsible supply chains.</li>
+                    <li><strong>Duty of Vigilance / ESG laws</strong>: mandatory human-rights and environmental risk audits.</li>
+                    <li>Non-compliance = fines, blocked products, loss of access to ESG funds.</li>
+                </ul>
+            </div>
+
+            <!-- Panel 2: GEOPOLITICS -->
+            <div class="panel">
+                <div class="panel-header">Geopolitics & Logistics</div>
+                <div class="panel-title">Asian reliance is structurally exposed</div>
+                <div class="panel-subtitle">Tensions and logistics shocks increase risk.</div>
+
+                <ul class="bullets">
+                    <li>China–EU tensions, export controls and potential tariffs.</li>
+                    <li>Suez crisis, container shortages, shipping volatility.</li>
+                    <li>Exposure to sanctions and geopolitical shocks.</li>
+                    <li>FX volatility amplifies commodity fluctuations.</li>
+                </ul>
+            </div>
+
+            <!-- Panel 3: BENCHMARK -->
+            <div class="panel">
+                <div class="panel-header">Sector Benchmark</div>
+                <div class="panel-title">Industry leaders move local</div>
+                <div class="panel-subtitle">Best practices converge toward EU sourcing.</div>
+
+                <ul class="bullets">
+                    <li>Northvolt, ACC, Verkor → EU gigafactories accelerating.</li>
+                    <li>OEMs adopt <strong>dual sourcing + local-for-local</strong>.</li>
+                    <li>Long-term strategic partnerships with EU suppliers.</li>
+                    <li>Resilience & ESG now included in tenders.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>Slide 3 · Regulation, benchmark & geopolitics</span>
+        <span class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </span>
+    </div>
+
+</div>
+</body>
+</html>

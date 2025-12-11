@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Slide 9 – NLP & Market Sentiment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* -------------------------------------------------
+   RESET
+---------------------------------------------------*/
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Inter", system-ui, sans-serif;
+    overflow: hidden;
+    background-color: #020617;
+}
+
+/* -------------------------------------------------
+   COLOR SYSTEM
+---------------------------------------------------*/
+:root {
+    --bg-primary: #020617;
+    --bg-panel: #020b1f;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-soft: #60a5fa;
+    --border: rgba(148,163,184,0.45);
+}
+
+/* -------------------------------------------------
+   ROOT CONTAINER
+---------------------------------------------------*/
+#slide9 {
+    width: 100vw;
+    height: 100vh;
+    padding: 40px 72px 32px 72px;
+    background: radial-gradient(circle at 16% 14%, #020c25 0%, #020617 55%);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* -------------------------------------------------
+   HEADER
+---------------------------------------------------*/
+.header-top {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.brand-title {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    color: #e5e7eb;
+    text-transform: uppercase;
+}
+
+.section-kicker {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+}
+
+.slide-title {
+    font-family: "Playfair Display", serif;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 600;
+}
+
+.slide-subtitle {
+    font-size: 18px;
+    max-width: 800px;
+    color: #d1d5db;
+    line-height: 1.45;
+}
+
+/* -------------------------------------------------
+   MAIN LAYOUT (IMAGE LEFT / TEXT RIGHT)
+---------------------------------------------------*/
+.section-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    column-gap: 34px;
+    align-items: center;
+}
+
+/* -------------------------------------------------
+   IMAGE PANEL LEFT
+---------------------------------------------------*/
+.image-panel {
+    background: radial-gradient(circle at 0% 0%, #071426, #020617 78%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 22px 48px rgba(15,23,42,0.8);
+    padding: 18px 22px;
+    position: relative;
+    overflow: hidden;
+    height: 95%;
+}
+
+.image-panel::after {
+    content: "";
+    position: absolute;
+    inset: -45%;
+    background: radial-gradient(circle at 0% 0%,
+                rgba(148,163,184,0.12),
+                transparent 60%);
+    opacity: 0.5;
+}
+
+.image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 18px;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 0 42px rgba(14,165,233,0.25);
+}
+
+/* -------------------------------------------------
+   RIGHT PANEL (TEXT)
+---------------------------------------------------*/
+.text-panel {
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    animation: fade-right 1.1s ease-out both;
+}
+
+@keyframes fade-right {
+    0% { opacity: 0; transform: translateX(28px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+.block {
+    background: radial-gradient(circle at 0% 0%, #0e172b, #020617 85%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 22px 48px rgba(15,23,42,0.8);
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.block::after {
+    content: "";
+    position: absolute;
+    inset: -45%;
+    background: radial-gradient(circle at 0% 0%, rgba(148,163,184,0.12), transparent 60%);
+    opacity: 0.5;
+}
+
+.block-header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+}
+
+.block-kicker {
+    color: var(--text-muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-bottom: 4px;
+}
+
+.block-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------
+   LISTS
+---------------------------------------------------*/
+.block-body {
+    font-size: 12,5px;
+    line-height: 1.55;
+    position: relative;
+    z-index: 1;
+    color: #e2e8f0;
+}
+
+.block-body ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.block-body li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.block-body li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent-soft);
+    font-size: 18px;
+}
+
+/* -------------------------------------------------
+   FOOTER
+---------------------------------------------------*/
+.footer {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dots {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(148,163,184,0.6);
+}
+
+.dot.active {
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 4px rgba(56,189,248,0.25);
+}
+
+/* -------------------------------------------------
+   ANIMATIONS
+---------------------------------------------------*/
+@keyframes fade-up {
+    0% { opacity: 0; transform: translateY(28px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+<div id="slide9">
+
+    <!-- ################# HEADER ################# -->
+    <header class="header-top">
+        <div class="brand-title">Eurimobility Case Study</div>
+        <div class="section-kicker">Slide 9 · NLP – Topic & Sentiment</div>
+
+        <h1 class="slide-title">
+            How the market talks about batteries <br> & supply chains
+        </h1>
+
+        <p class="slide-subtitle">
+            NLP reveals strong narrative patterns linking rare metals, supply risk, geopolitical tension 
+            and European sovereignty — crucial insights for Eurimobility’s 2026 procurement shift.
+        </p>
+    </header>
+
+
+    <!-- ################# MAIN SECTION ################# -->
+    <section class="section-layout">
+
+        <!-- LEFT : IMAGE -->
+        <article class="image-panel">
+            <img src="images/wordcloud_global.png" alt="Wordcloud Global">
+        </article>
+
+
+        <!-- RIGHT : TEXT -->
+        <article class="text-panel">
+
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-kicker">Strategic Interpretation</div>
+                    <div class="block-title">Implications for Procurement</div>
+                </div>
+
+                <div class="block-body">
+                    <ul>
+                        <li>Strong global concern around dependency on Asian suppliers in batteries and electronics.</li>
+                        <li>Market narratives reward European resilience, ESG compliance and low-carbon sourcing.</li>
+                        <li>Justifies immediate scouting of new European partners (ACC, Northvolt, Verkor, PCB makers).</li>
+                        <li>Supports dual-sourcing policies and supplier diversification in strategic categories.</li>
+                        <li>Aligns with tender expectations from OEMs, investors and EU regulators.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </article>
+
+    </section>
+
+</div>
+</body>
+</html>

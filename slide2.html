@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 2 – Eurimobility Company Profile</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020817;
+            --blue-soft: #60a5fa;
+            --cyan-soft: #22d3ee;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+            background:
+                radial-gradient(circle at 18% 15%, #020c25 0, #020617 46%);
+            color: var(--text-main);
+            isolation: isolate;
+        }
+
+        /* LEFT SIDE */
+        .left-panel {
+            padding: 40px 70px 32px 78px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .brand-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            margin-top: 40px;
+            max-width: 620px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+
+        .slide-subtitle {
+            font-size: 16px;
+            color: #e5e7eb;
+            margin-bottom: 18px;
+        }
+
+        .text-muted {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .panel {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 70%);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 16px 18px 16px 18px;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.7);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .panel-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        ul.bullets {
+            list-style: none;
+            padding-left: 0;
+            font-size: 14px;
+        }
+
+        ul.bullets li {
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 4px;
+            line-height: 1.45;
+        }
+
+        ul.bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--cyan-soft);
+        }
+
+        .metrics-row {
+            display: flex;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .metric-card {
+            flex: 1;
+            border-radius: 14px;
+            background: #020817;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;  /* vertical centering */
+            align-items: flex-start;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .metric-caption {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer span + span::before {
+            content: "·";
+            padding: 0 7px;
+        }
+
+        .nav-tip { opacity: 0.9; }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--blue-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        /* RIGHT SIDE – CHART CARD */
+        .right-panel {
+            position: relative;
+            padding: 40px 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-card {
+            width: 100%;
+            height: 100%;
+            max-width: 620px;
+            max-height: 420px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(248, 250, 252, 0.25), transparent 60%),
+                radial-gradient(circle at 80% 85%, rgba(30, 64, 175, 1), #020617 80%);
+            box-shadow:
+                0 26px 64px rgba(15, 23, 42, 0.9),
+                0 0 120px rgba(37, 99, 235, 0.7);
+            position: relative;
+            overflow: hidden;
+            padding: 16px 18px;
+            display: flex;          /* pour centrer le graph */
+            align-items: center;    /* vertical */
+            justify-content: center;/* horizontal */
+        }
+
+        .chart-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .chart-label {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-size: 12px;
+            color: #e5e7eb;
+            opacity: 0.9;
+        }
+
+        .chart-label span {
+            font-family: "Playfair Display", serif;
+            font-size: 13px;
+        }
+
+        /* simple appear animation */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100%{ opacity:1; transform: translateY(0); }
+        }
+        @keyframes fade-left {
+            0% { opacity:0; transform: translateX(20px); }
+            100%{ opacity:1; transform: translateX(0); }
+        }
+
+        .content-block { animation: fade-up 0.9s ease-out both; }
+        .chart-card   { animation: fade-left 0.9s ease-out 0.1s both; }
+
+    </style>
+</head>
+<body>
+<div class="slide">
+
+    <!-- LEFT -->
+    <section class="left-panel">
+        <header class="brand-block">
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Company &amp; Procurement Profile</div>
+        </header>
+
+        <main class="content-block">
+            <div class="section-kicker">Slide 2 · Context</div>
+            <h1 class="slide-title">Eurimobility – company and purchasing footprint</h1>
+            <p class="slide-subtitle">
+                A European mid-sized manufacturer of electric-mobility components with a procurement spend that is central to value creation.
+            </p>
+
+            <p class="text-muted">
+                Eurimobility assembles Li-ion batteries, electronic control units and smart sensors for EV and micro-mobility OEMs. 
+                Procurement represents close to 60&nbsp;% of revenue, making sourcing decisions a key strategic lever.
+            </p>
+
+            <div class="panel">
+                <div class="panel-title">Procurement snapshot (2024 baseline)</div>
+                <div class="panel-subtitle">Six main purchasing categories concentrated in electronics and batteries.</div>
+
+                <div class="two-col">
+                    <ul class="bullets">
+                        <li>Electronic components – 105&nbsp;M€ (34&nbsp;% of total spend).</li>
+                        <li>Li-ion batteries – 80&nbsp;M€ (26&nbsp;%).</li>
+                        <li>Cables &amp; connectors – 42&nbsp;M€ (13&nbsp;%).</li>
+                    </ul>
+                    <ul class="bullets">
+                        <li>Plastics &amp; chassis – 35&nbsp;M€ (11&nbsp;%).</li>
+                        <li>Logistics – 22&nbsp;M€ (7&nbsp;%).</li>
+                        <li>Indirect purchases – 28&nbsp;M€ (9&nbsp;%).</li>
+                    </ul>
+                </div>
+
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-label">Total purchases</div>
+                        <div class="metric-value">312&nbsp;M€</div>
+                        <div class="metric-caption">≈ 60&nbsp;% of Eurimobility revenue.</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Supplier structure</div>
+                        <div class="metric-value">High concentration</div>
+                        <div class="metric-caption">Top 20 suppliers &gt;70&nbsp;% of spend; 28&nbsp;% single-sourced items.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div>
+                <span>Slide 2 · Company &amp; current state</span>
+                <span>Eurimobility · Lyon</span>
+            </div>
+            <div>
+                <span class="nav-tip">Press <strong>→</strong> / <strong>space</strong> for next slide</span>
+                <span class="dots" style="margin-left:10px;">
+                    <span class="dot"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </span>
+            </div>
+        </footer>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="right-panel">
+        <div class="chart-card">
+            <div class="chart-label">
+    <span>Regional Supply Dependence Trends (2024–2026)</span><br />
+    Asia, Europe and Other – indexed spend
+</div>
+
+<svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-label="Regional supply dependence trends 2024–2026"
+     style="width:100%; height:100%;">
+    <!-- Background -->
+    <rect x="0" y="0" width="480" height="280" fill="none" />
+
+    <!-- Grid lines -->
+    <g stroke="rgba(148,163,184,0.35)" stroke-width="0.7">
+        <!-- horizontal -->
+        <line x1="60" y1="60" x2="440" y2="60" />
+        <line x1="60" y1="100" x2="440" y2="100" />
+        <line x1="60" y1="140" x2="440" y2="140" />
+        <line x1="60" y1="180" x2="440" y2="180" />
+        <line x1="60" y1="220" x2="440" y2="220" />
+        <!-- vertical (years) -->
+        <line x1="60"  y1="40" x2="60"  y2="240" />
+        <line x1="245" y1="40" x2="245" y2="240" />
+        <line x1="430" y1="40" x2="430" y2="240" />
+    </g>
+
+    <!-- Axes -->
+    <g stroke="rgba(148,163,184,0.8)" stroke-width="1">
+        <line x1="60" y1="240" x2="440" y2="240" />
+        <line x1="60" y1="40"  x2="60"  y2="240" />
+    </g>
+
+    <!-- X-axis labels -->
+    <g fill="#e5e7eb" font-size="11" text-anchor="middle">
+        <text x="60"  y="255">2024</text>
+        <text x="245" y="255">2025</text>
+        <text x="430" y="255">2026</text>
+    </g>
+
+    <!-- Y-axis labels (approx. 50,100,150,200,250) -->
+    <g fill="#9ca3af" font-size="10" text-anchor="end">
+        <text x="52" y="62">250</text>
+        <text x="52" y="102">200</text>
+        <text x="52" y="142">150</text>
+        <text x="52" y="182">100</text>
+        <text x="52" y="222">50</text>
+    </g>
+
+    <!--
+        Mapping valeurs -> y (avec max ~250):
+        Asia:   101.712 -> 158.6 ; 72 -> 182.4 ; 65.52 -> 187.6
+        Europe: 162.552 -> 110   ; 175 -> 100   ; 224.64 -> 60.3
+        Other:  47.736  -> 201.8 ; 27 -> 218.4 ; 21.84 -> 222.5
+        x: 2024 = 60 ; 2025 = 245 ; 2026 = 430
+        Courbes lissées avec Bezier cubiques.
+    -->
+
+    <!-- Europe (162.552, 175, 224.64) – courbe pleine -->
+    <path
+        d="M 60,110
+           C 152.5,110 152.5,100 245,100
+           S 337.5,60.3 430,60.3"
+        fill="none"
+        stroke="#1d4ed8"
+        stroke-width="2.6"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+    <g fill="#1d4ed8">
+        <circle cx="60"  cy="110" r="3.5" />
+        <circle cx="245" cy="100" r="3.5" />
+        <circle cx="430" cy="60.3" r="3.5" />
+    </g>
+
+    <!-- Asia (101.712, 72, 65.52) – courbe en pointillés -->
+    <path
+        d="M 60,158.6
+           C 152.5,158.6 152.5,182.4 245,182.4
+           S 337.5,187.6 430,200.6"
+        fill="none"
+        stroke="#38bdf8"
+        stroke-width="2.4"
+        stroke-dasharray="5 3"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+    <g fill="#38bdf8">
+        <circle cx="60"  cy="158.6" r="3.2" />
+        <circle cx="245" cy="182.4" r="3.2" />
+        <circle cx="430" cy="200.6" r="3.2" />
+    </g>
+
+    <!-- Other (47.736, 27, 21.84) – petite courbe -->
+    <path
+        d="M 60,201.8
+           C 152.5,201.8 152.5,218.4 245,218.4
+           S 337.5,222.5 430,222.5"
+        fill="none"
+        stroke="#fb923c"
+        stroke-width="2.2"
+        stroke-dasharray="4 3"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+    <g fill="#fb923c">
+        <circle cx="60"  cy="201.8" r="3" />
+        <circle cx="245" cy="218.4" r="3" />
+        <circle cx="430" cy="222.5" r="3" />
+    </g>
+
+    <!-- Legend -->
+    <g font-size="11" fill="#e5e7eb">
+        <circle cx="80" cy="54" r="4" fill="#1d4ed8" />
+        <text x="92" y="57">Europe</text>
+
+        <circle cx="152" cy="54" r="4" fill="#38bdf8" />
+        <text x="164" y="57">Asia</text>
+
+        <circle cx="206" cy="54" r="4" fill="#fb923c" />
+        <text x="218" y="57">Other</text>
+    </g>
+</svg>
+
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

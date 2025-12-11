@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 11.2 – Europe Dependency Increase</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --blue: #38bdf8;
+            --blue-soft: #93c5fd;
+            --navy-1: #020c25;
+            --navy-2: #020617;
+        }
+
+        #slide11-2 {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.05fr);
+            background: radial-gradient(circle at 18% 15%, var(--navy-1), var(--navy-2) 55%);
+            color: var(--text-main);
+        }
+
+        /* LEFT SIDE */
+        .left-panel {
+            padding: 40px 70px 32px 78px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 19px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .brand-subtitle {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .content-block {
+            max-width: 640px;
+            align-self: center;
+            justify-self: start;
+        }
+
+        .section-kicker {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 35px;
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
+        
+
+        .slide-subtitle {
+            font-size: 17px;
+            color: #e5e7eb;
+            margin-bottom: 10px;
+        }
+
+        .text-muted {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .key-number {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* RIGHT SIDE */
+        .right-panel {
+            padding: 40px 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-card {
+            width: 100%;
+            height: 100%;
+            max-width: 620px;
+            max-height: 420px;
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(248, 250, 252, 0.25), transparent 60%),
+                radial-gradient(circle at 80% 85%, rgba(30, 64, 175, 1), #020617 80%);
+            box-shadow:
+                0 26px 64px rgba(15, 23, 42, 0.9),
+                0 0 120px rgba(37, 99, 235, 0.7);
+            position: relative;
+            overflow: hidden;
+            padding: 16px 18px;
+        }
+
+        .chart-label {
+            position: absolute;
+            top: 14px;
+            left: 18px;
+            font-size: 12px;
+            color: #e5e7eb;
+        }
+
+        /* FOOTER DOTS */
+        .footer-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 72px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148,163,184,0.7);
+        }
+
+        .dot.active {
+            background: var(--blue);
+            box-shadow: 0 0 0 4px rgba(56,189,248,0.25);
+        }
+    </style>
+</head>
+<body>
+
+<div id="slide11-2">
+
+    <!-- LEFT PANEL -->
+    <section class="left-panel">
+
+        <header>
+            <div class="brand-title">Eurimobility Case Study</div>
+            <div class="brand-subtitle">Slide 11.2 · European Dependency</div>
+        </header>
+
+        <main class="content-block">
+            <div class="section-kicker">Focus – Strategic categories only</div>
+
+            <h1 class="slide-title">Strengthening European sourcing where it matters</h1>
+
+            <p class="slide-subtitle">
+                Europe already plays a major role in <strong>wiring/connectivity</strong>,
+                but remains behind in <strong>batteries</strong> and <strong>electronic components</strong>.
+            </p>
+
+            <p class="text-muted">
+                By 2026, Eurimobility targets a strong increase of European supply,
+                reaching <strong>65–70%+</strong> in all strategic categories, directly supporting the 
+                company’s sovereignty and resilience roadmap.
+            </p>
+
+            <div class="key-number">
+    <span class="value" style="color:#38bdf8;">48.5% → 70%</span>
+    <span>European dependency between 2024 and 2026.</span>
+</div>
+
+
+        </main>
+
+        <footer class="text-muted">
+            Strategic focus: Electronic Components · Li-ion Batteries · Wiring/Connectivity
+        </footer>
+
+    </section>
+
+    <!-- RIGHT PANEL : SVG CHART -->
+    <section class="right-panel">
+        <div class="chart-card">
+
+            <div class="chart-label">
+                <strong>European dependency increase</strong><br/>
+                Current vs 2026 – Strategic categories
+            </div>
+
+            <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg"
+                 style="width:100%; height:100%;">
+
+                <!-- Grid -->
+                <g stroke="rgba(148,163,184,0.35)" stroke-width="0.7">
+                    <line x1="60" y1="60" x2="440" y2="60"/>
+                    <line x1="60" y1="100" x2="440" y2="100"/>
+                    <line x1="60" y1="140" x2="440" y2="140"/>
+                    <line x1="60" y1="180" x2="440" y2="180"/>
+                    <line x1="60" y1="220" x2="440" y2="220"/>
+                    <line x1="60" y1="40" x2="60" y2="240"/>
+                    <line x1="220" y1="40" x2="220" y2="240"/>
+                    <line x1="380" y1="40" x2="380" y2="240"/>
+                </g>
+
+                <!-- Axes -->
+                <g stroke="rgba(148,163,184,0.9)" stroke-width="1.2">
+                    <line x1="60" y1="240" x2="440" y2="240"/>
+                    <line x1="60" y1="40" x2="60" y2="240"/>
+                </g>
+
+                <!-- Y labels -->
+                <g fill="rgba(226,232,240,0.9)" font-size="10">
+                    <text x="38" y="244">0%</text>
+                    <text x="30" y="200">20%</text>
+                    <text x="30" y="160">40%</text>
+                    <text x="30" y="120">60%</text>
+                    <text x="30" y="80">80%</text>
+                    <text x="30" y="40">100%</text>
+                </g>
+
+                <!-- X labels -->
+                <g fill="rgba(226,232,240,0.9)" font-size="10">
+                    <text x="120" y="254" text-anchor="middle">Electronic</text>
+                    <text x="120" y="266" text-anchor="middle">Components</text>
+
+                    <text x="280" y="254" text-anchor="middle">Li-ion</text>
+                    <text x="280" y="266" text-anchor="middle">Batteries</text>
+
+                    <text x="400" y="254" text-anchor="middle">Wiring /</text>
+                    <text x="400" y="266" text-anchor="middle">Connectivity</text>
+                </g>
+
+                <!-- Current Europe -->
+                                <!-- Current Europe dependency (calculé à partir de tes données) -->
+                <!-- Electronic components: 48.5%  → y=143
+                     Li-ion batteries:    56%    → y=128
+                     Wiring/connectivity: 86.5%  → y=67  -->
+                <polyline
+                    points="120,143 280,128 400,67"
+                    fill="none"
+                    stroke="#38bdf8"
+                    stroke-width="2.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                <!-- Europe 2026 (target)
+                     65%, 70%, 90%  → y=110, 100, 60 -->
+                <polyline
+                    points="120,110 280,100 400,60"
+                    fill="none"
+                    stroke="#93c5fd"
+                    stroke-width="2.8"
+                    stroke-dasharray="4 6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                <!-- Points actuels -->
+                <g fill="#38bdf8">
+                    <circle cx="120" cy="143" r="4" />
+                    <circle cx="280" cy="128" r="4" />
+                    <circle cx="400" cy="67"  r="4" />
+                </g>
+
+                <!-- Points 2026 -->
+                <g fill="#93c5fd">
+                    <circle cx="120" cy="110" r="4" />
+                    <circle cx="280" cy="100" r="4" />
+                    <circle cx="400" cy="60"  r="4" />
+                </g>
+
+
+                <!-- Legend -->
+                <!-- Legend – moved bottom left -->
+<g fill="rgba(226,232,240,0.95)" font-size="10">
+
+    <!-- Current Europe -->
+    <circle cx="80" cy="190" r="4" fill="#38bdf8"/>
+    <text x="95" y="193">Current Europe dependency</text>
+
+    <!-- Target 2026 -->
+    <circle cx="80" cy="206" r="4" fill="#93c5fd"/>
+    <text x="95" y="209">Europe dependency 2026 (target)</text>
+
+</g>
+
+                <!-- Axis title -->
+                <text x="20" y="150" transform="rotate(-90 20 150)"
+                      fill="rgba(226,232,240,0.9)" font-size="11"
+                      text-anchor="middle">
+                      % of spend sourced from Europe
+                </text>
+            </svg>
+
+        </div>
+
+        <div class="footer-dots">
+            <span>Europe dependency – strategic categories</span>
+            <span class="dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot active"></span>
+            </span>
+        </div>
+
+    </section>
+</div>
+
+</body>
+</html>

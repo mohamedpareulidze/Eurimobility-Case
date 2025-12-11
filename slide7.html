@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 7 – Kraljic Matrix</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: var(--navy-soft);
+        }
+
+        :root {
+            --navy-main: #0b1f3f;
+            --navy-soft: #0a1632;
+            --panel-navy: #10234a;
+            --accent: #38bdf8;
+            --accent-soft: #0ea5e9;
+            --accent-muted: #1d4ed8;
+            --text-main: #f9fafb;
+            --text-muted: #cbd5e1;
+        }
+
+        /* SLIDE LAYOUT */
+        #slide7 {
+            width: 100vw;
+            height: 100vh;
+            padding: 40px 72px 32px 72px;
+            background: radial-gradient(circle at 16% 14%, #123060 0, #0a1632 52%);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* HEADER */
+        .header-top {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 15px;
+            color: #e5e7eb;
+            max-width: 760px;
+            margin-top: 4px;
+        }
+
+        /* MAIN CONTENT LAYOUT */
+        .content-row {
+            flex: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 60%) minmax(0, 40%);
+            gap: 32px;
+            align-items: center;
+        }
+
+        /* MATRIX WRAPPER */
+        .matrix-wrapper {
+            position: relative;
+            height: 580px;
+            margin-left: 8px;
+        }
+
+        .matrix-frame {
+            position: absolute;
+            left: 80px;
+            right: 20px;
+            top: 6px;
+            bottom: 76px;
+            border-radius: 22px;
+            border: 1px solid rgba(226, 232, 240, 0.38);
+            background: radial-gradient(circle at 0% 0%, #13305b, #0c1c3a 78%);
+            box-shadow: 0 18px 34px rgba(8, 19, 41, 0.45);
+            overflow: hidden;
+        }
+
+        .matrix-grid {
+            position: absolute;
+            inset: 1px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        /* QUADRANTS */
+        .quadrant {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 18px 20px;
+            font-size: 12px;
+            line-height: 1.45;
+            color: var(--text-main);
+            position: relative;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .quadrant::before {
+            /* subtle border separators */
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-right: 1px solid rgba(148, 163, 184, 0.25);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+            pointer-events: none;
+        }
+
+        .quadrant:nth-child(2)::before,
+        .quadrant:nth-child(4)::before {
+            border-right: none;
+        }
+        .quadrant:nth-child(3)::before,
+        .quadrant:nth-child(4)::before {
+            border-bottom: none;
+        }
+
+        /* same hue, different intensities */
+        .q-heavy {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.28), transparent 60%),
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .q-strategic {
+            background:
+                radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.32), transparent 60%),
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .q-simple {
+            background:
+                radial-gradient(circle at 0% 100%, rgba(34, 197, 167, 0.26), transparent 60%),
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .q-complex {
+            background:
+                radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.34), transparent 60%),
+                rgba(255, 255, 255, 0.04);
+        }
+
+        .q-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .q-sub {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 2px;
+        }
+
+        .q-list {
+            margin-left: 16px;
+            margin-bottom: 3px;
+        }
+
+        .q-list li {
+            margin-bottom: 2px;
+        }
+
+        /* AXES */
+        .axis-y-line {
+            position: absolute;
+            left: 52px;
+            top: 10px;
+            bottom: 66px;
+            width: 2px;
+            background: rgba(226, 232, 240, 0.75);
+        }
+
+        .axis-y-arrow-top {
+            position: absolute;
+            left: 44px;
+            top: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 12px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .axis-y-arrow-bottom {
+            position: absolute;
+            left: 44px;
+            bottom: 60px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .axis-y-label {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: rotate(-90deg) translateX(-50%);
+            transform-origin: left top;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .axis-y-high {
+            position: absolute;
+            left: 12px;
+            top: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .axis-y-low {
+            position: absolute;
+            left: 16px;
+            bottom: 56px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .axis-x-line {
+            position: absolute;
+            left: 80px;
+            right: 40px;
+            bottom: 40px;
+            height: 2px;
+            background: rgba(226, 232, 240, 0.75);
+        }
+
+        .axis-x-arrow-right {
+            position: absolute;
+            right: 28px;
+            bottom: 34px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .axis-x-arrow-left {
+            position: absolute;
+            left: 68px;
+            bottom: 34px;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 12px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .axis-x-label {
+            position: absolute;
+            left: 80px;
+            right: 40px;
+            bottom: 16px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .axis-x-low {
+            position: absolute;
+            left: 80px;
+            bottom: 0;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .axis-x-high {
+            position: absolute;
+            right: 40px;
+            bottom: 0;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        /* RIGHT PANEL – TEXT SUMMARY */
+        .summary-panel {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .summary-card {
+            background: radial-gradient(circle at 0% 0%, #132a52, #0c1d3c 82%);
+            border-radius: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.38);
+            box-shadow: 0 16px 30px rgba(8, 19, 41, 0.5);
+            padding: 18px 20px 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .summary-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .summary-subtitle {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+        }
+
+        .summary-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .summary-list li {
+            margin-bottom: 4px;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .summary-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .tag-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        .tag-pill.highlight {
+            border-color: var(--accent);
+            background: radial-gradient(circle at 20% 0%,
+                        rgba(56, 189, 248, 0.32),
+                        rgba(15, 23, 42, 0.4));
+            box-shadow:
+                0 0 18px rgba(56, 189, 248, 0.8),
+                0 0 30px rgba(56, 189, 248, 0.45);
+        }
+
+        /* FOOTER */
+        .footer {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--accent-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(18px); }
+            100%{ opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; transform: scale(0.96); }
+            100%{ opacity: 1; transform: scale(1); }
+        }
+
+        .content-row { animation: fade-up 0.9s ease-out both; }
+        .matrix-frame { animation: fade-in 0.85s ease-out both; }
+    </style>
+</head>
+
+<body>
+<div id="slide7">
+
+    <!-- HEADER -->
+    <header class="header-top">
+        <div class="brand-title">Eurimobility Case Study</div>
+        <div class="section-kicker">Slide 7 · Portfolio segmentation</div>
+        <h1 class="slide-title">Kraljic matrix – Eurimobility’s purchasing portfolio</h1>
+        <p class="slide-subtitle">
+            The Kraljic matrix maps Eurimobility’s key categories by profit impact and supply risk,
+            clarifying where to build strategic partnerships, where to run competitive sourcing,
+            and where to focus on risk mitigation for bottleneck categories.
+        </p>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <section class="content-row">
+
+        <!-- MATRIX -->
+        <div class="matrix-wrapper">
+
+            <!-- Axes -->
+            <div class="axis-y-line"></div>
+            <div class="axis-y-arrow-top"></div>
+            <div class="axis-y-arrow-bottom"></div>
+            <div class="axis-y-label">Added value / Profit impact</div>
+            <div class="axis-y-high">High</div>
+            <div class="axis-y-low">Low</div>
+
+            <div class="axis-x-line"></div>
+            <div class="axis-x-arrow-right"></div>
+            <div class="axis-x-arrow-left"></div>
+            <div class="axis-x-label">Market complexity / Supply risk</div>
+            <div class="axis-x-low">Low</div>
+            <div class="axis-x-high">High</div>
+
+            <!-- Matrix frame & grid -->
+            <div class="matrix-frame">
+                <div class="matrix-grid">
+
+                    <!-- Top left: Heavy Purchases -->
+                    <div class="quadrant q-heavy">
+                        <div class="q-title">Heavy Purchases</div>
+                        <div class="q-sub">Category</div>
+                        <ul class="q-list">
+                            <li>Cables &amp; connectors (€42M – 13%)</li>
+                        </ul>
+                        <div class="q-sub">Key points</div>
+                        <ul class="q-list">
+                            <li>High purchasing weight and negotiation leverage.</li>
+                            <li>Competitive market – reverse auctions are realistic.</li>
+                            <li>Low technological risk, strong potential for savings.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Top right: Strategic Purchasing -->
+                    <div class="quadrant q-strategic">
+                        <div class="q-title">Strategic Purchasing</div>
+                        <div class="q-sub">Categories</div>
+                        <ul class="q-list">
+                            <li>Electronic components (€105M – 34%)</li>
+                            <li>Li-ion batteries (€80M – 26%)</li>
+                        </ul>
+                        <div class="q-sub">Key points</div>
+                        <ul class="q-list">
+                            <li>Critical for product performance and safety.</li>
+                            <li>High dependency on Asian suppliers; risk of shortages.</li>
+                            <li>High technological &amp; regulatory complexity.</li>
+                            <li>Strong exposure to geopolitical and raw-material volatility.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom left: Simple Purchasing -->
+                    <div class="quadrant q-simple">
+                        <div class="q-title">Simple Purchasing</div>
+                        <div class="q-sub">Categories</div>
+                        <ul class="q-list">
+                            <li>Logistics (€22M – 7%)</li>
+                            <li>Indirect purchases (€28M – 9%)</li>
+                        </ul>
+                        <div class="q-sub">Key points</div>
+                        <ul class="q-list">
+                            <li>Highly competitive market with many providers.</li>
+                            <li>Low product criticality and low supply risk.</li>
+                            <li>Easy substitution and abundant supply.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom right: Complex Purchasing -->
+                    <div class="quadrant q-complex">
+                        <div class="q-title">Complex Purchasing</div>
+                        <div class="q-sub">Category</div>
+                        <ul class="q-list">
+                            <li>Plastics &amp; chassis (€35M – 11%)</li>
+                        </ul>
+                        <div class="q-sub">Key points</div>
+                        <ul class="q-list">
+                            <li>Lower spend but strong dependency on tooling &amp; molds.</li>
+                            <li>Sensitive to transport constraints and long lead times.</li>
+                            <li>Limited suppliers for specific parts – risk of bottlenecks.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY / KEY TAKEAWAYS -->
+        <aside class="summary-panel">
+            <div class="summary-card">
+                <div class="summary-subtitle">Reading the matrix</div>
+                <div class="summary-title">Four distinct sourcing strategies</div>
+                <p class="summary-text">
+                    Strategic categories (batteries &amp; electronics) concentrate both value and risk.
+                    Leverage categories such as cables &amp; connectors are strong candidates for
+                    competitive sourcing and reverse auctions, while simple and complex purchases
+                    call for efficiency and risk-control rather than pure cost focus.
+                </p>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-subtitle">Priority focus for Eurimobility</div>
+                <div class="summary-title">Where to act first</div>
+                <ul class="summary-list">
+                    <li>
+                        Build long-term, European partnerships for <strong>Li-ion batteries</strong>
+                        and <strong>electronic components</strong>.
+                    </li>
+                    <li>
+                        Use <strong>reverse auctions</strong> on cables &amp; connectors to unlock savings
+                        while diversifying suppliers.
+                    </li>
+                    <li>
+                        Secure tooling, molds and capacity for <strong>plastics &amp; chassis</strong> to
+                        avoid bottlenecks.
+                    </li>
+                    <li>
+                        Streamline supplier base for logistics and indirect spend, focusing on service
+                        level and efficiency.
+                    </li>
+                </ul>
+
+                <div class="tag-row">
+                    <div class="tag-pill highlight">Strategic: Batteries &amp; electronics</div>
+                    <div class="tag-pill">Leverage: Cables &amp; connectors</div>
+                    <div class="tag-pill">Bottleneck: Plastics &amp; chassis</div>
+                    <div class="tag-pill">Non-critical: Logistics &amp; indirect</div>
+                </div>
+            </div>
+        </aside>
+
+    </section>
+
+</div>
+</body>
+</html>

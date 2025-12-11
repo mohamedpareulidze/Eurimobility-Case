@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Slide 5 – PARTS Analysis</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+        /* RESET */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        :root {
+            --navy-main: #020c25;
+            --navy-soft: #020617;
+            --panel-navy: #020817;
+            --blue-soft: #60a5fa;
+            --cyan-soft: #22d3ee;
+            --purple-soft: #a855f7;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        /* SLIDE LAYOUT */
+        #slide5 {
+            width: 100vw;
+            height: 100vh;
+            background:
+                radial-gradient(circle at 16% 12%, #020c25 0, #020617 46%);
+            color: var(--text-main);
+            padding: 40px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* HEADER */
+        .header-top {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .brand-title {
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+                .side-column.right {
+    justify-content: flex-start;
+    margin-top: -80px; /* remets à -40px si tu veux encore plus haut */
+}
+
+.side-column.left {
+    justify-content: flex-start;
+    margin-top: -80px; /* ajuste entre -20px et -80px selon le rendu que tu veux */
+}
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .slide-title {
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+            line-height: 1.15;
+        }
+
+        .slide-subtitle {
+            font-size: 15px;
+            color: #e5e7eb;
+            max-width: 720px;
+            margin-top: 4px;
+        }
+
+        /* MAIN CONTENT LAYOUT */
+        .content-row {
+            flex: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 36%) minmax(0, 18%) minmax(0, 36%);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* CARDS */
+        .card {
+            background: radial-gradient(circle at 0% 0%, #020b1f, #020617 72%);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 18px 20px;
+            box-shadow: 0 18px 34px rgba(15, 23, 42, 0.8);
+        }
+
+        .card-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-caption {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        /* GLOWING PILLS */
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .glow-pill {
+            position: relative;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .glow-pill::before {
+            content: "";
+            position: absolute;
+            inset: -4px -10px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 20% 0%,
+                        rgba(96, 165, 250, 0.35),
+                        rgba(15, 23, 42, 0.2));
+            opacity: 0.9;
+            z-index: -1;
+            box-shadow:
+                0 0 18px rgba(59, 130, 246, 0.9),
+                0 0 32px rgba(59, 130, 246, 0.55);
+        }
+
+        .glow-pill.cyan::before {
+            background: radial-gradient(circle at 20% 0%,
+                        rgba(34, 211, 238, 0.4),
+                        rgba(15, 23, 42, 0.25));
+            box-shadow:
+                0 0 18px rgba(34, 211, 238, 0.9),
+                0 0 32px rgba(34, 211, 238, 0.55);
+        }
+
+        .glow-pill.purple::before {
+            background: radial-gradient(circle at 20% 0%,
+                        rgba(168, 85, 247, 0.45),
+                        rgba(15, 23, 42, 0.25));
+            box-shadow:
+                0 0 18px rgba(168, 85, 247, 0.9),
+                0 0 32px rgba(168, 85, 247, 0.55);
+        }
+
+        .glow-pill span {
+            opacity: 0.95;
+        }
+
+        /* PARTS VERTICAL STACK */
+        .center-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .parts-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%,
+                        #ffffff 0,
+                        #e5f0ff 35%,
+                        #2563eb 100%);
+            border: 6px solid #1d4ed8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            font-weight: 700;
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.75);
+        }
+
+        .parts-circle + .parts-circle {
+            margin-top: -14px;
+        }
+
+        .parts-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* FOOTER */
+        .footer {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.7);
+        }
+
+        .dot.active {
+            background: var(--blue-soft);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+        }
+
+        /* SIMPLE ANIMATIONS */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(16px); }
+            100%{ opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in {
+            0% { opacity: 0; transform: scale(0.9); }
+            100%{ opacity: 1; transform: scale(1); }
+        }
+
+        .content-row { animation: fade-up 0.9s ease-out both; }
+        .parts-circle { animation: fade-in 0.8s ease-out both; }
+    </style>
+</head>
+
+<body>
+<div id="slide5">
+
+    <!-- HEADER -->
+    <header class="header-top">
+        <div class="brand-title">Eurimobility Case Study</div>
+        <div class="section-kicker">Slide 5 · Strategy framing</div>
+        <h1 class="slide-title">
+    PARTS analysis – redesigning the <br> procurement game
+</h1>
+
+<p class="slide-subtitle">
+    PARTS clarifies how Eurimobility can shift its strategic position by
+    reshaping Players, <br> Added Value, Rules, Tactics and Scope to accelerate the transition
+    toward a resilient<br> European supply base.
+</p>
+
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <section class="content-row">
+
+        <!-- LEFT COLUMN: Players + Added Value -->
+        <div class="side-column right">
+
+            <!-- PLAYERS -->
+            <article class="card">
+                <div class="card-header">Players</div>
+                <div class="card-title">Who is around the table?</div>
+                <p class="card-caption">
+                    Eurimobility can rebalance power in the ecosystem by reshaping its key relationships.
+                </p>
+                <div class="pill-row">
+                    <div class="glow-pill cyan">
+                        <span>Shift weight to European suppliers</span>
+                    </div>
+                    <div class="glow-pill">
+                        <span>Mobilise OEMs &amp; internal stakeholders</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ADDED VALUE -->
+            <article class="card">
+                <div class="card-header">Added Value</div>
+                <div class="card-title">Where do we really create value?</div>
+                <p class="card-caption">
+                    Beyond price, Eurimobility can become the preferred partner for strategic suppliers.
+                </p>
+                <div class="pill-row">
+                    <div class="glow-pill purple">
+                        <span>Preferred customer for EU champions</span>
+                    </div>
+                    <div class="glow-pill cyan">
+                        <span>Combine Asian cost &amp; European resilience</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- CENTER PARTS STACK -->
+        <div class="center-stack">
+            <div class="parts-circle">P</div>
+            <div class="parts-circle">A</div>
+            <div class="parts-circle">R</div>
+            <div class="parts-circle">T</div>
+            <div class="parts-circle">S</div>
+            <div class="parts-label">Players · Added value · Rules · Tactics · Scope</div>
+        </div>
+
+        <!-- RIGHT COLUMN: Rules + Tactics + Scope -->
+        <div class="side-column left">
+
+
+            <!-- RULES -->
+            <article class="card">
+                <div class="card-header">Rules</div>
+                <div class="card-title">Using regulation as a lever</div>
+                <p class="card-caption">
+                    EU rules can move from constraints to powerful justification for reshoring.
+                </p>
+                <div class="pill-row">
+                    <div class="glow-pill cyan">
+                        <span>Battery regulation drives local sourcing</span>
+                    </div>
+                    <div class="glow-pill">
+                        <span>Embed ESG &amp; traceability in contracts</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- TACTICS -->
+            <article class="card">
+                <div class="card-header">Tactics</div>
+                <div class="card-title">How we play the game</div>
+                <p class="card-caption">
+                    Tactical moves turn strategy into concrete supplier behaviour changes.
+                </p>
+                <div class="pill-row">
+                    <div class="glow-pill purple">
+                        <span>Reverse auctions for standard components</span>
+                    </div>
+                    <div class="glow-pill cyan">
+                        <span>Dual sourcing for batteries &amp; electronics</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- SCOPE -->
+            <article class="card">
+                <div class="card-header">Scope</div>
+                <div class="card-title">Where we choose to play</div>
+                <p class="card-caption">
+                    Scope decisions gradually tilt spend toward resilient, European-based flows.
+                </p>
+                <div class="pill-row">
+                    <div class="glow-pill cyan">
+                        <span>Expand scope to EU &amp; recycling partners</span>
+                    </div>
+                    <div class="glow-pill">
+                        <span>Phase out high-risk Asia dependency</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+    </section>
+
+</div>
+</body>
+</html>
